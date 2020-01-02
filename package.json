@@ -1,0 +1,61 @@
+{
+  "name": "@adobe/aio-cli-plugin-auth",
+  "description": "The IMS plugin to aio supports managing tokens for IMS such as login, logout, and retrieving and using tokens.",
+  "version": "1.0.2",
+  "author": "Adobe",
+  "bugs": "https://github.com/adobe/aio-cli-plugin-auth/issues",
+  "dependencies": {
+    "@adobe/aio-lib-core-ims": "^0.0.3",
+    "@adobe/aio-lib-core-ims-jwt": "^0.0.3",
+    "@adobe/aio-lib-core-ims-oauth": "^0.0.3",
+    "@oclif/command": "^1.5.13",
+    "hjson": "^3.1.2",
+    "js-yaml": "^3.13.0"
+  },
+  "devDependencies": {
+    "@adobe/eslint-config-aio-lib-config": "^1.0.2",
+    "@oclif/dev-cli": "^1.22.0",
+    "@oclif/plugin-help": "^2.1.6",
+    "codecov": "^3.6.1",
+    "eslint": "^6",
+    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jest": "^23.1.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "globby": "^10.0.1",
+    "jest": "^24",
+    "jest-junit": "^9.0.0",
+    "stdout-stderr": "^0.1.9"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/adobe/aio-cli-plugin-auth",
+  "keywords": [
+    "oclif-plugin"
+  ],
+  "license": "Apache-2.0",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "aio",
+    "devPlugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "https://github.com/adobe/aio-cli-plugin-auth",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "pretest": "eslint src test",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "npm run unit-tests",
+    "unit-tests": "jest --config test/jest.config.js ---ci -w=2",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
