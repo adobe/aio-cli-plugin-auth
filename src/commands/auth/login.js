@@ -63,7 +63,7 @@ The currently supported Adobe IMS login plugins are:
 * aio-lib-core-ims-jwt for JWT token based login supporting
   Adobe I/O Console service integrations.
 * aio-lib-core-ims-oauth for browser based OAuth2 login. This
-  plugin will launch a Chromium browser to guide through the
+  plugin will launch a Chromium browser to guide the user through the
   login process. The plugin itself will *never* see the user's
   password but only receive the authorization token after the
   user authenticated with Adobe IMS.

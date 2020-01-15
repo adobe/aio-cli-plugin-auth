@@ -33,7 +33,7 @@ LogoutCommand.description = `Log out the current or a named Adobe IMS context.
 This command can be called multiple times on the same Adobe IMS context with
 out causing any errors. The assumption is that after calling this command
 without an error, the Adobe IMS context's access and refresh tokens have been
-invalidated and removed from persistence storage. Repeatedly calling this
+invalidated and removed from persistent storage. Repeatedly calling this
 command will just do nothing.
 `
 

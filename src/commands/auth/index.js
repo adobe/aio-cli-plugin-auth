@@ -34,7 +34,7 @@ configuration property. The special property "$current" contains the
 label of the current configuration which can be set using the
 "aio auth ctx -s <label>" command.
 
-Each set of properties in labeled Adobe IMS context configurations has
+Each set of properties in a labeled Adobe IMS context configurations has
 configuration properties depending on the kind of access that is
 supported. The below example shows the configuration for OAuth2
 based (graphical SUSI) login.
