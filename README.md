@@ -1,7 +1,7 @@
 aio-cli-plugin-auth
 ==================
 
-The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe IMS such as login, logout, and retrieving and using tokens.
+The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe Identity Management Services (IMS) such as login, logout, and retrieving and using tokens.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@adobe/aio-cli-plugin-auth.svg)](https://npmjs.org/package/@adobe/aio-cli-plugin-auth)
@@ -13,7 +13,6 @@ The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe IMS such
 
 <!-- toc -->
 * [Motivation](#motivation)
-* [Goals](#goals)
 * [The JavaScript Packages](#the-javascript-packages)
 * [How it works](#how-it-works)
 * [Usage](#usage)
@@ -24,30 +23,20 @@ The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe IMS such
 
 # Motivation
 
-Adobe IMS integration for authentication and subsequent use of the CLI for service access is critical to the success of the CLI. To that avail, this functionality needs to be as complete as to support anything the browser UI supports as well. In the end, this means support for logging in not only with JWT tokens for technical accounts but also leveraging the SUSI flow for three-legged user based authentication and even, at least for Adobe internal teams, with service tokens.
+This plugin provides Adobe IMS support for authentication.
 
-The current [JWT Auth Plugin for the Adobe I/O CLI](https://github.com/adobe/aio-cli-plugin-jwt-auth) does a decent job supporting JWT based flows with some limitations, though:
-
-* Only a single configuration is supported, thus not allowing to switch for different configurations and thus different setups depending on the actual CLI task at hand. Even with the new local configuration support we are still limited to one configuration per local environment.
-* The configuration contains a lot of boiler plate data, which is the same for many configurations. This also makes the configuration hard to manage.
-* Only JWT tokens are supported. So we are missing real user tokens created using the SUSI UI based flow as well as service tokens, which are sometimes used by Adobe internal teams.
-* The actual JWT signing and token exchange are not easily re-usable outside of the CLI plugin.
-
-# Goals
-
-So the goal of this project along with the companion repositories is to provide more complete support:
-
-* Have a separate module implementing a JavaScript interface to the Adobe IMS API, so that this Adobe IMS API can be leveraged from multiple places, inside of the Adobe I/O CLI IMS Plugins or outside.
-* Store as little information in the configuration data as possible. This boils down to the absolutely needed fields, such as `client_id`, `client_secret`, `private_key` etc. The boilerplate, such as the bulk of the JWT token should be provided dynamically.
-* The plugins should support all three of the login mechanism: SUSI/UI based for user token, JWT based (technical/utility) user tokens, as well as Adobe-internal service tokens.
+This plugin supports:
+- multiple configurations for credentials
+- support for multiple authentication types (JWT, OAuth2 (three-legged via the browser))
+- support for authentication plugins (i.e. service token support)
 
 # The JavaScript Packages
 
-Without much further ado, here is the collection of Adobe IMS supporting plugins:
+The collection of Adobe IMS supporting plugins:
 
 * The [Adobe I/O Lib Core IMS Support Library](https://github.com/adobe/aio-lib-core-ims) is the reusable base library providing JavaScript level API to the Adobe IMS APIs as well as getting access to tokens. All the functionality of this library is available by simply requiring this library.
-* This [Adobe I/O CLI Auth Plugin](https://github.com/adobe/aio-cli-plugin-auth) is the main auth plugin to the Adobe IO CLI. See #plugin for more details below.
-* Three extension to the _Adobe I/O IMS Support Library_ supporting creation of IMS tokens for different use cases. They all come as node packages. They are used by the _Adobe I/O IMS Support Library_ to implement the access token creation. The plugins are:
+* This [Adobe I/O CLI Auth Plugin](https://github.com/adobe/aio-cli-plugin-auth) is the main auth plugin to the Adobe IO CLI.
+* Two extensions to the _Adobe I/O IMS Support Library_ supporting creation of IMS tokens for different use cases. They all come as node packages. They are used by the _Adobe I/O IMS Support Library_ to implement the access token creation. The plugins are:
     * The [Adobe I/O Lib Core IMS Library JWT Support](https://github.com/adobe/aio-lib-core-ims-jwt) supporting the generation and exchange for an access token of JWT Tokens.
     * The [Adobe I/O Lib Core IMS Library OAuth2 Support](https://github.com/adobe/aio-lib-core-ims-oauth) supporting the creation of tokens using the normal browser-based SUSI flow. To that avail the SUSI flow part is implemented as an embedded [Electron app](https://electronjs.org) driving the browser based interaction and capturing the callback from Adobe IMS.
 
@@ -67,7 +56,7 @@ $ npm install -g @adobe/aio-cli-plugin-auth
 $ aio COMMAND
 running command...
 $ aio (-v|--version|version)
-@adobe/aio-cli-plugin-auth/1.0.5 darwin-x64 node-v10.18.1
+@adobe/aio-cli-plugin-auth/1.0.5 darwin-x64 node-v10.15.3
 $ aio --help [COMMAND]
 USAGE
   $ aio COMMAND
@@ -102,7 +91,7 @@ DESCRIPTION
   label of the current configuration which can be set using the
   "aio auth ctx -s <label>" command.
 
-  Each set of properties in labeled Adobe IMS context configurations has
+  Each set of properties in a labeled Adobe IMS context configurations has
   configuration properties depending on the kind of access that is
   supported. The below example shows the configuration for OAuth2
   based (graphical SUSI) login.
@@ -160,6 +149,7 @@ DESCRIPTION
 
   Currently it is not possible to update the Adobe Adobe IMS context configuration
   using this command. Use the "aio config" commands for this.
+        e.g. aio config:set \$ims.your_context.your_context_key "your_context_value"
 
   Please note, that the Adobe Adobe IMS context labels starting with "$" are reserved
   and cannot be used as an Adobe IMS context name.
@@ -211,7 +201,7 @@ DESCRIPTION
   * aio-lib-core-ims-jwt for JWT token based login supporting
      Adobe I/O Console service integrations.
   * aio-lib-core-ims-oauth for browser based OAuth2 login. This
-     plugin will launch a Chromium browser to guide through the
+     plugin will launch a Chromium browser to guide the user through the
      login process. The plugin itself will *never* see the user's
      password but only receive the authorization token after the
      user authenticated with Adobe IMS.
@@ -250,7 +240,7 @@ DESCRIPTION
   This command can be called multiple times on the same Adobe IMS context with
   out causing any errors. The assumption is that after calling this command
   without an error, the Adobe IMS context's access and refresh tokens have been
-  invalidated and removed from persistence storage. Repeatedly calling this
+  invalidated and removed from persistent storage. Repeatedly calling this
   command will just do nothing.
 
 ALIASES
