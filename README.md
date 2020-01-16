@@ -12,6 +12,7 @@ The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe Identity
 [![Greenkeeper badge](https://badges.greenkeeper.io/adobe/aio-cli-plugin-auth.svg)](https://greenkeeper.io/)
 
 <!-- toc -->
+* [Dependencies](#dependencies)
 * [Motivation](#motivation)
 * [The JavaScript Packages](#the-javascript-packages)
 * [How it works](#how-it-works)
@@ -20,6 +21,14 @@ The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe Identity
 * [Contributing](#contributing)
 * [Licensing](#licensing)
 <!-- tocstop -->
+
+# Dependencies
+
+| Module | Version | Downloads | Build Status | Coverage  | Issues | Pull Requests |
+|---|---|---|---|---|---|---|
+| [@adobe/aio-lib-core-ims](https://github.com/adobe/aio-lib-core-ims)| [![Version](https://img.shields.io/npm/v/@adobe/aio-lib-core-ims.svg)](https://npmjs.org/package/@adobe/aio-lib-core-ims)| [![Downloads/week](https://img.shields.io/npm/dw/@adobe/aio-lib-core-ims.svg)](https://npmjs.org/package/@adobe/aio-lib-core-ims)| [![Build Status](https://travis-ci.com/adobe/aio-lib-core-ims.svg?branch=master)](https://travis-ci.com/adobe/aio-lib-core-ims)| [![Codecov Coverage](https://img.shields.io/codecov/c/github/adobe/aio-lib-core-ims/master.svg?style=flat-square)](https://codecov.io/gh/adobe/aio-lib-core-ims/)| [![Github Issues](https://img.shields.io/github/issues/adobe/aio-lib-core-ims.svg)](https://github.com/adobe/aio-lib-core-ims/issues)| [![Github Pull Requests](https://img.shields.io/github/issues-pr/adobe/aio-lib-core-ims.svg)](https://github.com/adobe/aio-lib-core-ims/pulls)|
+| [@adobe/aio-lib-core-ims-jwt](https://github.com/adobe/aio-lib-core-ims-jwt)| [![Version](https://img.shields.io/npm/v/@adobe/aio-lib-core-ims-jwt.svg)](https://npmjs.org/package/@adobe/aio-lib-core-ims-jwt)| [![Downloads/week](https://img.shields.io/npm/dw/@adobe/aio-lib-core-ims-jwt.svg)](https://npmjs.org/package/@adobe/aio-lib-core-ims-jwt)| [![Build Status](https://travis-ci.com/adobe/aio-lib-core-ims-jwt.svg?branch=master)](https://travis-ci.com/adobe/aio-lib-core-ims-jwt)| [![Codecov Coverage](https://img.shields.io/codecov/c/github/adobe/aio-lib-core-ims-jwt/master.svg?style=flat-square)](https://codecov.io/gh/adobe/aio-lib-core-ims-jwt/)| [![Github Issues](https://img.shields.io/github/issues/adobe/aio-lib-core-ims-jwt.svg)](https://github.com/adobe/aio-lib-core-ims-jwt/issues)| [![Github Pull Requests](https://img.shields.io/github/issues-pr/adobe/aio-lib-core-ims-jwt.svg)](https://github.com/adobe/aio-lib-core-ims-jwt/pulls)|
+| [@adobe/aio-lib-core-ims-oauth](https://github.com/adobe/aio-lib-core-ims-oauth)| [![Version](https://img.shields.io/npm/v/@adobe/aio-lib-core-ims-oauth.svg)](https://npmjs.org/package/@adobe/aio-lib-core-ims-oauth)| [![Downloads/week](https://img.shields.io/npm/dw/@adobe/aio-lib-core-ims-oauth.svg)](https://npmjs.org/package/@adobe/aio-lib-core-ims-oauth)| [![Build Status](https://travis-ci.com/adobe/aio-lib-core-ims-oauth.svg?branch=master)](https://travis-ci.com/adobe/aio-lib-core-ims-oauth)| [![Codecov Coverage](https://img.shields.io/codecov/c/github/adobe/aio-lib-core-ims-oauth/master.svg?style=flat-square)](https://codecov.io/gh/adobe/aio-lib-core-ims-oauth/)| [![Github Issues](https://img.shields.io/github/issues/adobe/aio-lib-core-ims-oauth.svg)](https://github.com/adobe/aio-lib-core-ims-oauth/issues)| [![Github Pull Requests](https://img.shields.io/github/issues-pr/adobe/aio-lib-core-ims-oauth.svg)](https://github.com/adobe/aio-lib-core-ims-oauth/pulls)|
 
 # Motivation
 
