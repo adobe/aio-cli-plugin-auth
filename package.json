@@ -56,6 +56,7 @@
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "npm run unit-tests",
     "unit-tests": "jest --config test/jest.config.js ---ci -w=2",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "e2e": "jest --collectCoverage=false --testRegex './e2e/e2e.js'"
   }
 }
