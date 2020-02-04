@@ -21,33 +21,17 @@ const AUTH_TIMEOUT_SECONDS = 120
 const AUTH_URL = 'TODO://'
 
 /**
- * Create a local server to wait for browser callback.
+ * Create a local server.
  *
  * @param {*} options
  */
-async function createServer ({ hostname = '127.0.0.1', port = 8000 } = {}) {
-  return new Promise((resolve, reject) => {
-    const server = http.createServer((req, res) => {
-      const _url = new url.URL(req.url, `http://${req.headers.host}`)
-      const queryData = _url.searchParams
-      let state
+async function createServer () {
+  return new Promise(resolve => {
+    const server = http.createServer()
 
-      if (queryData && (state = queryData.get('state'))) {
-        const resultData = JSON.parse(state)
-        resultData.code = queryData.get('code')
-        resolve(resultData)
-      } else {
-        reject(new Error('No query data to get the authorization code from'))
-      }
-
-      res.statusCode = 200
-      res.setHeader('Content-Type', 'text/plain')
-      res.end('You are now logged in, you may close this window\n')
-
-      server.close()
-    })
-    server.listen(port, hostname, () => {
-      debug(`Login callback server running at http://${hostname}:${port}/`)
+    server.listen(0, '127.0.0.1')
+    server.on('listening', () => {
+      resolve(server)
     })
   })
 }
@@ -71,45 +55,62 @@ function authSiteUrl (_url, queryParams) {
 const randomId = () => crypto.randomBytes(4).toString('hex')
 
 /**
- * Gets the access token for a logged in user.
+ * Gets the relevant query data from the request query parameters.
  *
- * @param {object} config an object with config details
- * @param {integer} config.port the port number for the server
- * @param {integer} config.timeout the number of seconds to timeout in checking
+ * @param {*} request a Request object
  */
-async function login (config) {
-  const id = randomId()
+function getQueryDataFromRequest (request) {
+  const _url = new url.URL(request.url, `http://${request.headers.host}`)
+  const queryData = _url.searchParams || new URLSearchParams()
+  const state = queryData.get('state') || '{}'
+  const accessToken = queryData.get('access_token')
 
-  const uri = authSiteUrl(AUTH_URL, { id, port: config.port })
-  const timeoutSeconds = config.timeout || AUTH_TIMEOUT_SECONDS
+  return { ...JSON.parse(state), accessToken }
+}
+
+/**
+ * Gets the access token for a signed in user.
+ *
+ * @param {integer} timeoutSeconds the number of seconds to timeout in checking
+ */
+async function login (timeoutSeconds = AUTH_TIMEOUT_SECONDS) {
+  const id = randomId()
+  const server = await createServer()
+  const serverPort = server.address().port
+  const uri = authSiteUrl(AUTH_URL, { id, port: serverPort })
+
+  debug(`Local server created on port ${serverPort}.`)
 
   return new Promise((resolve, reject) => {
-    let spinner
+    console.log('Visit this url to log in: ')
+    cli.url(uri, uri)
+    cli.open(uri)
+    const spinner = ora('Logging in').start()
 
     const timerId = setTimeout(() => {
       reject(new Error(`Timed out after ${timeoutSeconds} seconds.`))
       spinner.stop()
     }, timeoutSeconds * 1000)
 
-    createServer({ port: (config.port || 8000) })
-      .then(state => {
-        if (state.code && state.id === id) {
-          spinner.info('Exchanging auth code for token')
-          clearTimeout(timerId)
-          resolve(state.code)
-        } else {
-          clearTimeout(timerId)
-          reject(new Error(`error code=${state.code}`))
-        }
-      })
+    server.on('request', (request, response) => {
+      const queryData = getQueryDataFromRequest(request)
+      console.log(`queryData: ${JSON.stringify(queryData, null, 2)}`)
 
-    async function launch () {
-      console.log('Visit this url to log in: ')
-      cli.url(uri, uri)
-      cli.open(uri)
-      spinner = ora('Logging in').start()
-    }
-    launch()
+      if (queryData.accessToken && queryData.id === id) {
+        spinner.info('Got access token')
+        clearTimeout(timerId)
+        resolve(queryData.access_token)
+      } else {
+        clearTimeout(timerId)
+        reject(new Error(`error code=${queryData.code}`))
+      }
+
+      response.statusCode = 200
+      response.setHeader('Content-Type', 'text/plain')
+      response.end('You are now signed in, please close this window.\n')
+
+      server.close()
+    })
   })
 }
 
