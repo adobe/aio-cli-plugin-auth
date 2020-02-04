@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 
 const { flags } = require('@oclif/command')
 const ImsBaseCommand = require('../../ims-base-command')
+const { login } = require('../../login-helper')
 
 class LoginCommand extends ImsBaseCommand {
   async run () {
@@ -28,8 +29,14 @@ class LoginCommand extends ImsBaseCommand {
         }
       }
 
-      // login
-      let token = await getToken(flags.ctx, flags.force)
+      flags.ctx = flags.ctx || 'cli'
+
+      let token
+      if (flags.ctx === 'cli') {
+        token = await login()
+      } else {
+        token = await getToken(flags.ctx, flags.force)
+      }
 
       // decode the token
       if (flags.decode) {
