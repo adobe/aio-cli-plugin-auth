@@ -18,7 +18,7 @@ const ora = require('ora')
 const { cli } = require('cli-ux')
 
 const AUTH_TIMEOUT_SECONDS = 120
-const AUTH_URL = 'TODO://'
+const AUTH_URL = 'https://adobeioruntime.net/api/v1/web/53444_51636/default/app/'
 
 /**
  * Create a local server.
