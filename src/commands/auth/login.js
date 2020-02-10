@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 
 const { flags } = require('@oclif/command')
 const ImsBaseCommand = require('../../ims-base-command')
-const { login } = require('../../login-helper')
+const login = require('@adobe/aio-lib-core-ims-oauth/src/login')
 
 class LoginCommand extends ImsBaseCommand {
   async run () {
@@ -33,7 +33,8 @@ class LoginCommand extends ImsBaseCommand {
 
       let token
       if (flags.ctx === 'cli') {
-        token = await login()
+        const options = {}
+        token = await login(options)
       } else {
         token = await getToken(flags.ctx, flags.force)
       }
