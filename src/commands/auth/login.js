@@ -33,8 +33,11 @@ class LoginCommand extends ImsBaseCommand {
 
       let token
       if (flags.ctx === 'cli') {
-        const options = {}
-        token = await login(options)
+        const options = { bare: flags.bare }
+        token = JSON.parse(await login(options))
+        if (flags.bare) {
+          token = token.access_token.token
+        }
       } else {
         token = await getToken(flags.ctx, flags.force)
       }
@@ -80,7 +83,8 @@ The currently supported Adobe IMS login plugins are:
 LoginCommand.flags = {
   ...ImsBaseCommand.flags,
   force: flags.boolean({ char: 'f', description: 'Force logging in. This causes a forced logout on the context first and makes sure to not use any cached data when calling the plugin.', default: false }),
-  decode: flags.boolean({ char: 'd', description: 'Decode and display access token data' })
+  decode: flags.boolean({ char: 'd', description: 'Decode and display access token data' }),
+  bare: flags.boolean({ char: 'b', description: 'print access token only', default: false })
 }
 
 LoginCommand.args = [
