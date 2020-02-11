@@ -12,7 +12,6 @@ governing permissions and limitations under the License.
 
 const { flags } = require('@oclif/command')
 const ImsBaseCommand = require('../../ims-base-command')
-const login = require('@adobe/aio-lib-core-ims-oauth/src/login')
 
 class LoginCommand extends ImsBaseCommand {
   async run () {
@@ -29,18 +28,16 @@ class LoginCommand extends ImsBaseCommand {
         }
       }
 
-      flags.ctx = flags.ctx || 'cli'
+      // default is the `$cli` context, if $ims.$current not set
+      flags.ctx = flags.ctx || (context.current || '$cli')
 
-      let token
-      if (flags.ctx === 'cli') {
-        const options = { bare: flags.bare }
-        token = JSON.parse(await login(options))
-        if (flags.bare) {
-          token = token.access_token.token
-        }
-      } else {
-        token = await getToken(flags.ctx, flags.force)
+      if (flags.ctx === '$cli') {
+        const data = context.cli || {}
+        data['$cli.bare-output'] = flags.bare
+        context.cli = data
       }
+
+      let token = await getToken(flags.ctx, flags.force)
 
       // decode the token
       if (flags.decode) {
