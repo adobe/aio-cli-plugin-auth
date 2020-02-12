@@ -29,12 +29,12 @@ class LoginCommand extends ImsBaseCommand {
       }
 
       // default is the `$cli` context, if $ims.$current not set
-      flags.ctx = flags.ctx || (context.current || '$cli')
+      flags.ctx = flags.ctx || (await context.getCurrent() || '$cli')
 
       if (flags.ctx === '$cli') {
-        const data = context.cli || {}
+        const data = await context.getCli() || {}
         data['$cli.bare-output'] = flags.bare
-        context.cli = data
+        await context.setCli(data)
       }
 
       let token = await getToken(flags.ctx, flags.force)
