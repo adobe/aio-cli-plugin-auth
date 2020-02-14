@@ -44,7 +44,7 @@ test('run - success', async () => {
 
   const spy = jest.spyOn(command, 'printObject')
 
-  ims.getTokenData.mockImplementation((token) => {
+  ims.getTokenData.mockImplementation(() => {
     return tokenData
   })
 
@@ -56,6 +56,7 @@ test('run - success', async () => {
   command.argv = ['--ctx', context, '--decode']
   runResult = command.run()
   await expect(runResult instanceof Promise).toBeTruthy()
+  await expect(runResult).resolves.not.toThrow()
   await expect(spy).toHaveBeenCalledWith(tokenData)
 })
 
@@ -72,6 +73,20 @@ test('run - error', async () => {
     throw new Error(errorMessage)
   })
 
+  const IMS = '$ims'
+  const store = {
+    [IMS]: {
+    }
+  }
+
+  ims.context.setCurrent.mockImplementation(async (data) => {
+    store.$ims.$current = data
+  })
+
+  ims.context.getCurrent.mockImplementation(async (data) => {
+    return store.$ims.$current
+  })
+
   // context flag
   command.argv = ['--ctx', context]
   runResult = command.run()
@@ -85,7 +100,7 @@ test('run - error', async () => {
   await expect(runResult).rejects.toEqual(new Error(`Cannot get token for context '${context}': ${errorMessage}`))
 
   // context from config
-  ims.context.current = context
+  await ims.context.setCurrent(context)
   command.argv = []
   runResult = command.run()
   await expect(runResult).rejects.toEqual(new Error(`Cannot get token for context '${context}': ${errorMessage}`))

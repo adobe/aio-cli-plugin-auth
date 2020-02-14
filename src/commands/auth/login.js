@@ -18,6 +18,8 @@ class LoginCommand extends ImsBaseCommand {
     const { flags } = this.parse(LoginCommand)
 
     const { getTokenData, getToken, invalidateToken, context } = require('@adobe/aio-lib-core-ims')
+    const current = await context.getCurrent()
+
     try {
       // in case of forced login: forced logout first
       if (flags.force) {
@@ -28,7 +30,15 @@ class LoginCommand extends ImsBaseCommand {
         }
       }
 
-      // login
+      // default is the `$cli` context, if $ims.$current not set
+      flags.ctx = flags.ctx || (current || '$cli')
+
+      if (flags.ctx === '$cli') {
+        const data = await context.getCli() || {}
+        data['$cli.bare-output'] = flags.bare
+        await context.setCli(data)
+      }
+
       let token = await getToken(flags.ctx, flags.force)
 
       // decode the token
@@ -40,7 +50,7 @@ class LoginCommand extends ImsBaseCommand {
     } catch (err) {
       const stackTrace = err.stack ? '\n' + err.stack : ''
       this.debug(`Login Failure: ${err.message || err}${stackTrace}`)
-      this.error(`Cannot get token for context '${flags.ctx || context.current}': ${err.message || err}`, { exit: 1 })
+      this.error(`Cannot get token for context '${flags.ctx}': ${err.message || err}`, { exit: 1 })
     }
   }
 }
@@ -72,7 +82,8 @@ The currently supported Adobe IMS login plugins are:
 LoginCommand.flags = {
   ...ImsBaseCommand.flags,
   force: flags.boolean({ char: 'f', description: 'Force logging in. This causes a forced logout on the context first and makes sure to not use any cached data when calling the plugin.', default: false }),
-  decode: flags.boolean({ char: 'd', description: 'Decode and display access token data' })
+  decode: flags.boolean({ char: 'd', description: 'Decode and display access token data' }),
+  bare: flags.boolean({ char: 'b', description: 'print access token only', default: false })
 }
 
 LoginCommand.args = [
