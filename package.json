@@ -7,7 +7,7 @@
   "dependencies": {
     "@adobe/aio-lib-core-ims": "^1.0.0",
     "@adobe/aio-lib-core-ims-jwt": "^0.0.3",
-    "@adobe/aio-lib-core-ims-oauth": "^1.0.2",
+    "@adobe/aio-lib-core-ims-oauth": "^1.2.0",
     "@oclif/command": "^1.5.13",
     "cli-ux": "^5.4.4",
     "hjson": "^3.1.2",
@@ -34,7 +34,7 @@
     "stdout-stderr": "^0.1.9"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "files": [
     "/oclif.manifest.json",
