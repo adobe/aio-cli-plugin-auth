@@ -28,7 +28,7 @@ class LogoutCommand extends ImsBaseCommand {
     } catch (err) {
       const stackTrace = err.stack ? '\n' + err.stack : ''
       this.debug(`Logout Failure: ${err.message || err}${stackTrace}`)
-      this.error(`Cannot logout context '${flags.ctx || context.current}': ${err.message || err}`, { exit: 1 })
+      this.error(`Cannot logout context '${flags.ctx}': ${err.message || err}`, { exit: 1 })
     }
   }
 }

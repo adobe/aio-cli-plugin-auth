@@ -55,8 +55,22 @@ test('run - error', async () => {
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).rejects.toEqual(new Error(`Cannot logout context '${context}': ${errorMessage}`))
 
+  const IMS = '$ims'
+  const store = {
+    [IMS]: {
+    }
+  }
+
+  ims.context.setCurrent.mockImplementation(async (data) => {
+    store.$ims.$current = data
+  })
+
+  ims.context.getCurrent.mockImplementation(async (data) => {
+    return store.$ims.$current
+  })
+
   // coverage
-  ims.context.current = context
+  await ims.context.setCurrent(context)
   command.argv = []
   runResult = command.run()
   await expect(runResult).rejects.toEqual(new Error(`Cannot logout context '${context}': ${errorMessage}`))
