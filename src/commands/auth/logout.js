@@ -18,12 +18,17 @@ class LogoutCommand extends ImsBaseCommand {
     const { flags } = this.parse(LogoutCommand)
 
     const { invalidateToken, context } = require('@adobe/aio-lib-core-ims')
+    const { CLI } = require('@adobe/aio-lib-core-ims/src/context')
+    const current = await context.getCurrent()
+
+    flags.ctx = flags.ctx || (current || CLI)
+
     try {
       await invalidateToken(flags.ctx, flags.force)
     } catch (err) {
       const stackTrace = err.stack ? '\n' + err.stack : ''
       this.debug(`Logout Failure: ${err.message || err}${stackTrace}`)
-      this.error(`Cannot logout context '${flags.ctx || context.current}': ${err.message || err}`, { exit: 1 })
+      this.error(`Cannot logout context '${flags.ctx}': ${err.message || err}`, { exit: 1 })
     }
   }
 }
