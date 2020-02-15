@@ -18,11 +18,12 @@ class LoginCommand extends ImsBaseCommand {
     const { flags } = this.parse(LoginCommand)
 
     const { getTokenData, getToken, invalidateToken, context } = require('@adobe/aio-lib-core-ims')
+    const { CLI } = require('@adobe/aio-lib-core-ims/src/context')
     const current = await context.getCurrent()
 
     try {
       // default is the `$cli` context, if $ims.$current not set
-      flags.ctx = flags.ctx || (current || '$cli')
+      flags.ctx = flags.ctx || (current || CLI)
 
       // in case of forced login: forced logout first
       if (flags.force) {
@@ -33,7 +34,7 @@ class LoginCommand extends ImsBaseCommand {
         }
       }
 
-      if (flags.ctx === '$cli') {
+      if (flags.ctx === CLI) {
         const data = await context.getCli() || {}
         data['$cli.bare-output'] = flags.bare
         await context.setCli(data)
