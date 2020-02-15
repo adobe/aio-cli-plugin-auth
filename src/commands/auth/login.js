@@ -35,9 +35,9 @@ class LoginCommand extends ImsBaseCommand {
       }
 
       if (flags.ctx === CLI) {
-        const data = await context.getCli() || {}
-        data['$cli.bare-output'] = flags.bare
-        await context.setCli(data)
+        await context.setCli({
+          '$cli.bare-output': flags.bare
+        })
       }
 
       let token = await getToken(flags.ctx, flags.force)
