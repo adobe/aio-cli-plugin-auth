@@ -21,6 +21,9 @@ class LoginCommand extends ImsBaseCommand {
     const current = await context.getCurrent()
 
     try {
+      // default is the `$cli` context, if $ims.$current not set
+      flags.ctx = flags.ctx || (current || '$cli')
+
       // in case of forced login: forced logout first
       if (flags.force) {
         try {
@@ -29,9 +32,6 @@ class LoginCommand extends ImsBaseCommand {
           // ignore failure of invalidation, continue with login
         }
       }
-
-      // default is the `$cli` context, if $ims.$current not set
-      flags.ctx = flags.ctx || (current || '$cli')
 
       if (flags.ctx === '$cli') {
         const data = await context.getCli() || {}

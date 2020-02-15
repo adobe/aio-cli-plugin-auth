@@ -18,6 +18,10 @@ class LogoutCommand extends ImsBaseCommand {
     const { flags } = this.parse(LogoutCommand)
 
     const { invalidateToken, context } = require('@adobe/aio-lib-core-ims')
+    const current = await context.getCurrent()
+
+    flags.ctx = flags.ctx || (current || '$cli')
+
     try {
       await invalidateToken(flags.ctx, flags.force)
     } catch (err) {
