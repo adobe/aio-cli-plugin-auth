@@ -17,7 +17,7 @@ class CtxCommand extends ImsBaseCommand {
   async run () {
     const { flags } = this.parse(CtxCommand)
 
-    const { context } = require('@adobe/aio-lib-core-ims')
+    const { context } = require('@adobe/aio-lib-ims')
     if (flags.list) {
       this.printObject(await context.keys())
     } else if (flags.value) {

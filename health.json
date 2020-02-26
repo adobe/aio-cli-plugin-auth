@@ -1,5 +1,5 @@
 [
-    "adobe/aio-lib-core-ims",
-    "adobe/aio-lib-core-ims-jwt",
-    "adobe/aio-lib-core-ims-oauth"
+    "adobe/aio-lib-ims",
+    "adobe/aio-lib-ims-jwt",
+    "adobe/aio-lib-ims-oauth"
 ] 

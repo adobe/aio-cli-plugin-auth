@@ -17,8 +17,8 @@ class LoginCommand extends ImsBaseCommand {
   async run () {
     const { flags } = this.parse(LoginCommand)
 
-    const { getTokenData, getToken, invalidateToken, context } = require('@adobe/aio-lib-core-ims')
-    const { CLI } = require('@adobe/aio-lib-core-ims/src/context')
+    const { getTokenData, getToken, invalidateToken, context } = require('@adobe/aio-lib-ims')
+    const { CLI } = require('@adobe/aio-lib-ims/src/context')
     const current = await context.getCurrent()
 
     try {
@@ -71,9 +71,9 @@ the IMS login process.
 
 The currently supported Adobe IMS login plugins are:
 
-* aio-lib-core-ims-jwt for JWT token based login supporting
+* aio-lib-ims-jwt for JWT token based login supporting
   Adobe I/O Console service integrations.
-* aio-lib-core-ims-oauth for browser based OAuth2 login. This
+* aio-lib-ims-oauth for browser based OAuth2 login. This
   plugin will launch a Chromium browser to guide the user through the
   login process. The plugin itself will *never* see the user's
   password but only receive the authorization token after the
