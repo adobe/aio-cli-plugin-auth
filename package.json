@@ -50,7 +50,8 @@
     "bin": "aio",
     "devPlugins": [
       "@oclif/plugin-help"
-    ]
+    ],
+    "repositoryPrefix": "<%- repo %>/blob/<%- version %>/<%- commandPath %>"
   },
   "repository": "https://github.com/adobe/aio-cli-plugin-auth",
   "scripts": {
