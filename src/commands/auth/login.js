@@ -30,7 +30,7 @@ class LoginCommand extends ImsBaseCommand {
         try {
           await invalidateToken(flags.ctx, true)
         } catch (err) {
-          // ignore failure of invalidation, continue with login
+          this.debugError('invalidateToken failure', err)
         }
       }
 
@@ -49,8 +49,7 @@ class LoginCommand extends ImsBaseCommand {
 
       this.printObject(token)
     } catch (err) {
-      const stackTrace = err.stack ? '\n' + err.stack : ''
-      this.debug(`Login Failure: ${err.message || err}${stackTrace}`)
+      this.debugError('Login failure', err)
       this.error(`Cannot get token for context '${flags.ctx}': ${err.message || err}`, { exit: 1 })
     }
   }
