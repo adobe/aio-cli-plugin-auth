@@ -26,8 +26,7 @@ class LogoutCommand extends ImsBaseCommand {
     try {
       await invalidateToken(flags.ctx, flags.force)
     } catch (err) {
-      const stackTrace = err.stack ? '\n' + err.stack : ''
-      this.debug(`Logout Failure: ${err.message || err}${stackTrace}`)
+      this.debugError('Logout failure', err)
       this.error(`Cannot logout context '${flags.ctx}': ${err.message || err}`, { exit: 1 })
     }
   }

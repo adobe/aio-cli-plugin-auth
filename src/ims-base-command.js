@@ -31,6 +31,11 @@ class ImsBaseCommand extends Command {
     return super.init()
   }
 
+  debugError (message, err) {
+    const stackTrace = err.stack ? '\n' + err.stack : ''
+    this.debug(`${message}: ${err.message || err}${stackTrace}`)
+  }
+
   printObject (obj) {
     const { flags } = this.parse(this.constructor)
 
