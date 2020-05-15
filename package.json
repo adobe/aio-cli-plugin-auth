@@ -5,7 +5,7 @@
   "author": "Adobe",
   "bugs": "https://github.com/adobe/aio-cli-plugin-auth/issues",
   "dependencies": {
-    "@oclif/plugin-help": "^2.2.3",
+    "@oclif/plugin-help": "^3.0.1",
     "@adobe/aio-lib-core-config": "^1.2.8",
     "@adobe/aio-lib-ims": "^2.1.0",
     "@adobe/aio-lib-ims-jwt": "^1.0.0",
