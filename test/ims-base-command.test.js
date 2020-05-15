@@ -14,6 +14,7 @@ const TheCommand = require('../src/ims-base-command')
 const { stdout } = require('stdout-stderr')
 const hjson = require('hjson')
 const debug = require('debug')
+const config = require('@adobe/aio-lib-core-config')
 
 afterEach(() => {
   jest.resetAllMocks()
@@ -96,4 +97,58 @@ test('printObject', () => {
   command.argv = []
   command.printObject({})
   expect(stdout.output).toEqual('')
+})
+
+describe('printConsoleConfig', () => {
+  let mockConfig
+  beforeEach(() => {
+    config.get.mockClear()
+    mockConfig = {
+      '$console.org.name': 'Fake Org',
+      '$console.project.name': 'Fake Project',
+      '$console.workspace.name': 'Fake Workspace'
+    }
+    config.get.mockImplementation(key => mockConfig[key])
+  })
+
+  test('calls config get', () => {
+    command.printConsoleConfig()
+    expect(config.get).toBeCalledWith('$console.org.name')
+    expect(config.get).toBeCalledWith('$console.project.name')
+    expect(config.get).toBeCalledWith('$console.workspace.name')
+  })
+  test('no org, no project, no workspace', () => {
+    delete mockConfig['$console.org.name']
+    delete mockConfig['$console.project.name']
+    delete mockConfig['$console.workspace.name']
+
+    stdout.start()
+    command.printConsoleConfig()
+    expect(stdout.output).toEqual(`You are currently in:
+1. Org: <no org selected>
+2. Project: <no project selected>
+3. Workspace: <no workspace selected>
+`)
+  })
+  test('no project, no workspace', () => {
+    delete mockConfig['$console.project.name']
+    delete mockConfig['$console.workspace.name']
+    stdout.start()
+    command.printConsoleConfig()
+    expect(stdout.output).toEqual(`You are currently in:
+1. Org: Fake Org
+2. Project: <no project selected>
+3. Workspace: <no workspace selected>
+`)
+  })
+  test('no workspace', () => {
+    delete mockConfig['$console.workspace.name']
+    stdout.start()
+    command.printConsoleConfig()
+    expect(stdout.output).toEqual(`You are currently in:
+1. Org: Fake Org
+2. Project: Fake Project
+3. Workspace: <no workspace selected>
+`)
+  })
 })

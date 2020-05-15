@@ -43,6 +43,7 @@ test('run - success', async () => {
   let runResult
 
   const spy = jest.spyOn(command, 'printObject')
+  const spy2 = jest.spyOn(command, 'printConsoleConfig')
 
   ims.getTokenData.mockImplementation(() => {
     return tokenData
@@ -58,6 +59,7 @@ test('run - success', async () => {
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
   await expect(spy).toHaveBeenCalledWith(tokenData)
+  await expect(spy2).toHaveBeenCalled()
 })
 
 test('run - error', async () => {
