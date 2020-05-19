@@ -20,11 +20,15 @@ class LogoutCommand extends ImsBaseCommand {
     const { invalidateToken, context } = require('@adobe/aio-lib-ims')
     const { CLI } = require('@adobe/aio-lib-ims/src/context')
     const current = await context.getCurrent()
-
     flags.ctx = flags.ctx || (current || CLI)
-
     try {
-      await invalidateToken(flags.ctx, flags.force)
+      const accessToken = await context.get(`${flags.ctx}.access_token`)
+      if (!accessToken.data) {
+        this.log('You are already logged out.')
+        return
+      }
+      await invalidateToken(flags.ctx, true)
+      this.log('You have successfully logged out')
     } catch (err) {
       this.debugError('Logout failure', err)
       this.error(`Cannot logout context '${flags.ctx}': ${err.message || err}`, { exit: 1 })
