@@ -7,7 +7,7 @@
   "dependencies": {
     "@oclif/plugin-help": "^2.2.3",
     "@adobe/aio-lib-core-config": "^1.2.8",
-    "@adobe/aio-lib-ims": "^2.1.0",
+    "@adobe/aio-lib-ims": "^3.0.0",
     "@adobe/aio-lib-ims-jwt": "^1.0.0",
     "@adobe/aio-lib-ims-oauth": "^2.1.0",
     "@oclif/command": "^1.5.13",
