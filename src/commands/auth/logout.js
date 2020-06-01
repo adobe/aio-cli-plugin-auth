@@ -27,7 +27,7 @@ class LogoutCommand extends ImsBaseCommand {
       return
     }
     try {
-      await invalidateToken(flags.ctx, true)
+      await invalidateToken(flags.ctx, flags.force)
       this.log('You have successfully logged out.')
     } catch (err) {
       this.debugError('Logout failure', err)
