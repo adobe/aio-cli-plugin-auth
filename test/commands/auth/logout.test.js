@@ -41,7 +41,39 @@ test('run - success', async () => {
   await expect(runResult).resolves.not.toThrow()
 })
 
-test('run - error', async () => {
+test('run - already logged out', async () => {
+  let data
+  command.log = jest.fn((logData) => {
+    data = logData
+  })
+
+  const runResult = command.run([])
+  await expect(runResult instanceof Promise).toBeTruthy()
+  await expect(runResult).resolves.not.toThrow()
+  await expect(data).toEqual('You are already logged out.')
+})
+
+test('run - already logged out', async () => {
+    let data
+    command.log = jest.fn((logData) => {
+      data = logData
+    })
+
+    ims.context.get.mockImplementation(async data => {
+        return {
+            data: 'TOKEN'
+        }
+    })
+
+    const runResult = command.run([])
+    await expect(runResult instanceof Promise).toBeTruthy()
+    await expect(runResult).resolves.not.toThrow()
+    await expect(data).toEqual('You have successfully logged out.')
+  })
+
+
+
+test('run - error logging out', async () => {
   const errorMessage = 'my-error'
   const context = 'my-context'
   let runResult
@@ -49,11 +81,6 @@ test('run - error', async () => {
   ims.invalidateToken.mockImplementation(async (ctx, force) => {
     throw new Error(errorMessage)
   })
-
-  command.argv = ['--ctx', context]
-  runResult = command.run()
-  await expect(runResult instanceof Promise).toBeTruthy()
-  await expect(runResult).rejects.toEqual(new Error(`Cannot logout context '${context}': ${errorMessage}`))
 
   const IMS = '$ims'
   const store = {
@@ -67,6 +94,12 @@ test('run - error', async () => {
 
   ims.context.getCurrent.mockImplementation(async (data) => {
     return store.$ims.$current
+  })
+
+  ims.context.get.mockImplementation(async data => {
+      return {
+          data: 'TOKEN'
+      }
   })
 
   // coverage
