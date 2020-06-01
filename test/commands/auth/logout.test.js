@@ -53,25 +53,23 @@ test('run - already logged out', async () => {
   await expect(data).toEqual('You are already logged out.')
 })
 
-test('run - already logged out', async () => {
-    let data
-    command.log = jest.fn((logData) => {
-      data = logData
-    })
-
-    ims.context.get.mockImplementation(async data => {
-        return {
-            data: 'TOKEN'
-        }
-    })
-
-    const runResult = command.run([])
-    await expect(runResult instanceof Promise).toBeTruthy()
-    await expect(runResult).resolves.not.toThrow()
-    await expect(data).toEqual('You have successfully logged out.')
+test('run - successfully logged out', async () => {
+  let data
+  command.log = jest.fn((logData) => {
+    data = logData
   })
 
+  ims.context.get.mockImplementation(async data => {
+    return {
+      data: 'TOKEN'
+    }
+  })
 
+  const runResult = command.run([])
+  await expect(runResult instanceof Promise).toBeTruthy()
+  await expect(runResult).resolves.not.toThrow()
+  await expect(data).toEqual('You have successfully logged out.')
+})
 
 test('run - error logging out', async () => {
   const errorMessage = 'my-error'
@@ -97,9 +95,9 @@ test('run - error logging out', async () => {
   })
 
   ims.context.get.mockImplementation(async data => {
-      return {
-          data: 'TOKEN'
-      }
+    return {
+      data: 'TOKEN'
+    }
   })
 
   // coverage
