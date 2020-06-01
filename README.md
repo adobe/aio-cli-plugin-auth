@@ -9,7 +9,7 @@ The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe Identity
 [![Build Status](https://travis-ci.com/adobe/aio-cli-plugin-auth.svg?branch=master)](https://travis-ci.com/adobe/aio-cli-plugin-auth)
 [![License](https://img.shields.io/npm/l/@adobe/aio-cli-plugin-auth.svg)](https://github.com/adobe/aio-cli-plugin-auth/blob/master/package.json)
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/adobe/aio-cli-plugin-auth/master.svg?style=flat-square)](https://codecov.io/gh/adobe/aio-cli-plugin-auth/)
-[![Greenkeeper badge](https://badges.greenkeeper.io/adobe/aio-cli-plugin-auth.svg)](https://greenkeeper.io/)
+
 
 <!-- toc -->
 * [Dependencies](#dependencies)
