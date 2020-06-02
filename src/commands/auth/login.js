@@ -48,8 +48,11 @@ class LoginCommand extends ImsBaseCommand {
       }
 
       this.printObject(token)
-      this.log()
-      this.printConsoleConfig()
+
+      if (!flags.bare) {
+        this.log()
+        this.printConsoleConfig()
+      }
     } catch (err) {
       this.debugError('Login failure', err)
       this.error(`Cannot get token for context '${flags.ctx}': ${err.message || err}`, { exit: 1 })

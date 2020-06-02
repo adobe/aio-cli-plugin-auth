@@ -24,6 +24,7 @@ let command
 
 beforeEach(() => {
   command = new TheCommand([])
+  jest.resetAllMocks()
 })
 
 test('exports and properties', () => {
@@ -35,12 +36,10 @@ test('exports and properties', () => {
   expect(typeof TheCommand.args).toEqual('object')
 })
 
-test('run - success', async () => {
-  const context = 'my-context'
+test('run - success (no flags)', async () => {
   const tokenData = {
     data: ''
   }
-  let runResult
 
   const spy = jest.spyOn(command, 'printObject')
   const spy2 = jest.spyOn(command, 'printConsoleConfig')
@@ -49,17 +48,55 @@ test('run - success', async () => {
     return tokenData
   })
 
-  runResult = command.run([])
+  const runResult = command.run([])
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
+  expect(spy).toHaveBeenCalled()
+  expect(spy2).toHaveBeenCalled()
+})
+
+test('run - success (--decode)', async () => {
+  const context = 'my-context'
+  const tokenData = {
+    data: ''
+  }
+
+  const spy = jest.spyOn(command, 'printObject')
+  const spy2 = jest.spyOn(command, 'printConsoleConfig')
+
+  ims.getTokenData.mockImplementation(() => {
+    return tokenData
+  })
 
   // decode flag
   command.argv = ['--ctx', context, '--decode']
-  runResult = command.run()
+  const runResult = command.run()
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
-  await expect(spy).toHaveBeenCalledWith(tokenData)
-  await expect(spy2).toHaveBeenCalled()
+  expect(spy).toHaveBeenCalledWith(tokenData)
+  expect(spy2).toHaveBeenCalled()
+})
+
+test('run - success (--bare)', async () => {
+  const context = 'my-context'
+  const tokenData = {
+    data: ''
+  }
+
+  const spy = jest.spyOn(command, 'printObject')
+  const spy2 = jest.spyOn(command, 'printConsoleConfig')
+
+  ims.getToken.mockImplementation(async () => {
+    return tokenData
+  })
+
+  // bare flag
+  command.argv = ['--ctx', context, '--bare']
+  const runResult = command.run()
+  await expect(runResult instanceof Promise).toBeTruthy()
+  await expect(runResult).resolves.not.toThrow()
+  expect(spy).toHaveBeenCalledWith(tokenData)
+  expect(spy2).not.toHaveBeenCalled()
 })
 
 test('run - error', async () => {
