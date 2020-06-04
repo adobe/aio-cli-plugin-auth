@@ -47,7 +47,7 @@ The collection of Adobe IMS supporting plugins:
 * This [Adobe I/O CLI Auth Plugin](https://github.com/adobe/aio-cli-plugin-auth) is the main auth plugin to the Adobe IO CLI.
 * Two extensions to the _Adobe I/O IMS Support Library_ supporting creation of IMS tokens for different use cases. They all come as node packages. They are used by the _Adobe I/O IMS Support Library_ to implement the access token creation. The plugins are:
     * The [Adobe I/O Lib Core IMS Library JWT Support](https://github.com/adobe/aio-lib-ims-jwt) supporting the generation and exchange for an access token of JWT Tokens.
-    * The [Adobe I/O Lib Core IMS Library OAuth2 Support](https://github.com/adobe/aio-lib-ims-oauth) supporting the creation of tokens using the normal browser-based SUSI flow. To that avail the SUSI flow part is implemented as an embedded [Electron app](https://electronjs.org) driving the browser based interaction and capturing the callback from Adobe IMS.
+    * The [Adobe I/O Lib Core IMS Library OAuth2 Support](https://github.com/adobe/aio-lib-ims-oauth) supporting the creation of tokens using the normal browser-based SUSI flow. The Adobe I/O CLI will launch a website that will redirect the user to login to IMS, and after a successful login, the access token will be returned back to the CLI.
 
 # How it works
 
