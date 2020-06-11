@@ -104,23 +104,23 @@ describe('printConsoleConfig', () => {
   beforeEach(() => {
     config.get.mockClear()
     mockConfig = {
-      '$console.org.name': 'Fake Org',
-      '$console.project.name': 'Fake Project',
-      '$console.workspace.name': 'Fake Workspace'
+      'console.org.name': 'Fake Org',
+      'console.project.name': 'Fake Project',
+      'console.workspace.name': 'Fake Workspace'
     }
     config.get.mockImplementation(key => mockConfig[key])
   })
 
   test('calls config get', () => {
     command.printConsoleConfig()
-    expect(config.get).toBeCalledWith('$console.org.name')
-    expect(config.get).toBeCalledWith('$console.project.name')
-    expect(config.get).toBeCalledWith('$console.workspace.name')
+    expect(config.get).toBeCalledWith('console.org.name')
+    expect(config.get).toBeCalledWith('console.project.name')
+    expect(config.get).toBeCalledWith('console.workspace.name')
   })
   test('no org, no project, no workspace', () => {
-    delete mockConfig['$console.org.name']
-    delete mockConfig['$console.project.name']
-    delete mockConfig['$console.workspace.name']
+    delete mockConfig['console.org.name']
+    delete mockConfig['console.project.name']
+    delete mockConfig['console.workspace.name']
 
     stdout.start()
     command.printConsoleConfig()
@@ -131,8 +131,8 @@ describe('printConsoleConfig', () => {
 `)
   })
   test('no project, no workspace', () => {
-    delete mockConfig['$console.project.name']
-    delete mockConfig['$console.workspace.name']
+    delete mockConfig['console.project.name']
+    delete mockConfig['console.workspace.name']
     stdout.start()
     command.printConsoleConfig()
     expect(stdout.output).toEqual(`You are currently in:
@@ -142,7 +142,7 @@ describe('printConsoleConfig', () => {
 `)
   })
   test('no workspace', () => {
-    delete mockConfig['$console.workspace.name']
+    delete mockConfig['console.workspace.name']
     stdout.start()
     command.printConsoleConfig()
     expect(stdout.output).toEqual(`You are currently in:

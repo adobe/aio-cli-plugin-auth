@@ -16,7 +16,7 @@ const yaml = require('js-yaml')
 const debug = require('debug')
 const config = require('@adobe/aio-lib-core-config')
 
-const CONSOLE_KEY = '$console'
+const CONSOLE_KEY = 'console'
 
 class ImsBaseCommand extends Command {
   async init () {
