@@ -17,6 +17,7 @@ The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe Identity
 * [The JavaScript Packages](#the-javascript-packages)
 * [How it works](#how-it-works)
 * [Usage](#usage)
+* [OR](#or)
 * [Commands](#commands)
 * [Contributing](#contributing)
 * [Licensing](#licensing)
@@ -59,17 +60,11 @@ This _Adobe IO CLI Auth Plugin_ offers three commands:
 
 
 # Usage
-<!-- usage -->
-```sh-session
-$ npm install -g @adobe/aio-cli-plugin-auth
-$ aio COMMAND
-running command...
-$ aio (-v|--version|version)
-@adobe/aio-cli-plugin-auth/2.1.2 darwin-x64 node-v10.18.1
-$ aio --help [COMMAND]
-USAGE
-  $ aio COMMAND
-...
+```
+$ aio plugins:install -g @adobe/aio-cli-plugin-auth
+# OR
+$ aio discover -i
+$ aio auth --help
 ```
 <!-- usagestop -->
 # Commands
