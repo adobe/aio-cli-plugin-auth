@@ -22,7 +22,7 @@ class LoginCommand extends ImsBaseCommand {
     const current = await context.getCurrent()
 
     try {
-      // default is the `$cli` context, if $ims.$current not set
+      // default is the `$cli` context, if ims.$current not set
       flags.ctx = flags.ctx || (current || CLI)
 
       // in case of forced login: forced logout first

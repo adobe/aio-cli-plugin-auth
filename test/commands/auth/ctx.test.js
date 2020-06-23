@@ -40,7 +40,7 @@ test('run', async () => {
   let runResult
 
   const store = {
-    $ims: {
+    ims: {
       [myContext]: {
       },
       [anotherContext]: {
@@ -49,17 +49,17 @@ test('run', async () => {
     }
   }
 
-  const IMS = '$ims.'
+  const IMS = 'ims.'
   config.get.mockImplementation(key => {
     if (key.startsWith(IMS)) {
-      return store.$ims[key.substring(IMS.length)]
+      return store.ims[key.substring(IMS.length)]
     }
     return store[key]
   })
 
   config.set.mockImplementation((key, value) => {
     if (key.startsWith(IMS)) {
-      store.$ims[key.substring(IMS.length)] = value
+      store.ims[key.substring(IMS.length)] = value
     } else {
       store[key] = value
     }
@@ -69,13 +69,13 @@ test('run', async () => {
   runResult = command.run()
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
-  await expect(spy).toHaveBeenCalledWith(store.$ims.$current)
+  await expect(spy).toHaveBeenCalledWith(store.ims.$current)
 
   command.argv = ['--ctx', myContext, '--value']
   runResult = command.run()
   await expect(runResult).resolves.not.toThrow()
   await expect(spy).toHaveBeenCalledWith({
-    data: store.$ims[myContext],
+    data: store.ims[myContext],
     name: myContext
   })
 
