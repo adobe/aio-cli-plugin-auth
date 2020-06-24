@@ -45,7 +45,7 @@ test('run', async () => {
       },
       [anotherContext]: {
       },
-      $current: myContext
+      current: myContext
     }
   }
 
@@ -69,7 +69,7 @@ test('run', async () => {
   runResult = command.run()
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
-  await expect(spy).toHaveBeenCalledWith(store.ims.$current)
+  await expect(spy).toHaveBeenCalledWith(store.ims.current)
 
   command.argv = ['--ctx', myContext, '--value']
   runResult = command.run()

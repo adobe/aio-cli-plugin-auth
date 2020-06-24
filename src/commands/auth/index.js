@@ -30,7 +30,7 @@ multiple. Each set of configuration properties, called an Adobe IMS context,
 can be individually addressed by a label.
 
 Configuration for the Adobe IMS commands is stored in the "ims"
-configuration property. The special property "$current" contains the
+configuration property. The special property "current" contains the
 label of the current configuration which can be set using the
 "aio auth ctx -s <label>" command.
 
@@ -58,7 +58,7 @@ IndexCommand.examples = [
         scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
         state: ""
       },
-      $current: "postman"
+      current: "postman"
     }
   }
   `

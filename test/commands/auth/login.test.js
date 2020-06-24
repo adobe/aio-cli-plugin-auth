@@ -119,11 +119,11 @@ test('run - error', async () => {
   }
 
   ims.context.setCurrent.mockImplementation(async (data) => {
-    store.ims.$current = data
+    store.ims.current = data
   })
 
   ims.context.getCurrent.mockImplementation(async (data) => {
-    return store.ims.$current
+    return store.ims.current
   })
 
   // context flag
