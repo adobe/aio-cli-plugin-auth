@@ -12,14 +12,19 @@ The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe Identity
 
 
 <!-- toc -->
-* [Dependencies](#dependencies)
-* [Motivation](#motivation)
-* [The JavaScript Packages](#the-javascript-packages)
-* [How it works](#how-it-works)
-* [Usage](#usage)
-* [Commands](#commands)
-* [Contributing](#contributing)
-* [Licensing](#licensing)
+- [aio-cli-plugin-auth](#aio-cli-plugin-auth)
+- [Dependencies](#dependencies)
+- [Motivation](#motivation)
+- [The JavaScript Packages](#the-javascript-packages)
+- [How it works](#how-it-works)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`aio auth`](#aio-auth)
+  - [`aio auth:ctx`](#aio-authctx)
+  - [`aio auth:login`](#aio-authlogin)
+  - [`aio auth:logout`](#aio-authlogout)
+- [Contributing](#contributing)
+- [Licensing](#licensing)
 <!-- tocstop -->
 
 # Dependencies

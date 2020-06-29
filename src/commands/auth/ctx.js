@@ -42,10 +42,10 @@ The following options exist for this command:
 
 Currently it is not possible to update the Adobe Adobe IMS context configuration
 using this command. Use the "aio config" commands for this.
-     e.g. aio config:set \\ims.your_context.your_context_key "your_context_value"
+     e.g. aio config:set ims.your_context.your_context_key "your_context_value"
 
-Please note, that the Adobe Adobe IMS context labels starting with "$" are reserved
-and cannot be used as an Adobe IMS context name.
+Please note, that the following IMS context label names are reserved:
+\`plugins\`, \`cli\`, \`current\` and cannot be used as an IMS context name.
 `
 
 CtxCommand.flags = {
