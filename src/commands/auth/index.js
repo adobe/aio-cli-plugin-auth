@@ -50,15 +50,19 @@ HJSON (default), JSON, or YAML.
 IndexCommand.examples = [
   `{
     ims: {
-      postman: {
-        env: "stage",
-        callback_url: "https://callback.example.com",
-        client_id: "example.com-client-id",
-        client_secret: "XXXXXXXX",
-        scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
-        state: ""
+      contexts: {
+        postman: {
+          env: "stage",
+          callback_url: "https://callback.example.com",
+          client_id: "example.com-client-id",
+          client_secret: "XXXXXXXX",
+          scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
+          state: ""
+        }
       },
-      current: "postman"
+      config: {
+        current: "postman"
+      }
     }
   }
   `

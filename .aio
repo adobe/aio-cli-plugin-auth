@@ -1,0 +1,12 @@
+{
+  ims: {
+    contexts: {
+      cli: {
+        cli.bare-output: true
+      }
+    },
+    config: {
+      current: "cli"
+    }
+  }
+}

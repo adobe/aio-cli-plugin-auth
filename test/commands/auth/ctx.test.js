@@ -41,11 +41,13 @@ test('run', async () => {
 
   const store = {
     ims: {
-      [myContext]: {
+      contexts: {
+        [myContext]: {},
+        [anotherContext]: {}
       },
-      [anotherContext]: {
-      },
-      current: myContext
+      config: {
+        current: myContext
+      }
     }
   }
 
