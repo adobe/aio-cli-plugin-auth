@@ -2,7 +2,7 @@
   ims: {
     contexts: {
       cli: {
-        cli.bare-output: true
+        cli.bare-output: false
       }
     },
     config: {
