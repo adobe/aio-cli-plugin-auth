@@ -13,6 +13,7 @@ governing permissions and limitations under the License.
 const TheCommand = require('../../../src/commands/auth/ctx')
 const BaseCommand = require('../../../src/ims-base-command')
 const config = require('@adobe/aio-lib-core-config')
+const { IMS, CONTEXTS, CONFIG, CURRENT } = require('@adobe/aio-lib-ims/src/context')
 
 afterEach(() => {
   jest.resetAllMocks()
@@ -40,52 +41,65 @@ test('run', async () => {
   let runResult
 
   const store = {
-    ims: {
-      contexts: {
+    [IMS]: {
+      [CONTEXTS]: {
         [myContext]: {},
         [anotherContext]: {}
       },
-      config: {
-        current: myContext
+      [CONFIG]: {
+        [CURRENT]: myContext
       }
     }
   }
 
-  const IMS = 'ims.'
   config.get.mockImplementation(key => {
-    if (key.startsWith(IMS)) {
-      return store.ims[key.substring(IMS.length)]
+    if (key.startsWith(`${IMS}.${CONTEXTS}.`)) {
+      return store[IMS][CONTEXTS][key.substring(`${IMS}.${CONTEXTS}.`.length)]
+    }
+    if (key.startsWith(`${IMS}.${CONFIG}.`)) {
+      return store[IMS][CONFIG][key.substring(`${IMS}.${CONFIG}.`.length)]
+    }
+    if (key === `${IMS}.${CONTEXTS}`) {
+      return store[IMS][CONTEXTS]
+    }
+    if (key === `${IMS}.${CONFIG}`) {
+      return store[IMS][CONFIG]
     }
     return store[key]
   })
 
   config.set.mockImplementation((key, value) => {
-    if (key.startsWith(IMS)) {
-      store.ims[key.substring(IMS.length)] = value
-    } else {
-      store[key] = value
+    if (key.startsWith(`${IMS}.${CONTEXTS}.`)) {
+      store[IMS][CONTEXTS][key.substring(`${IMS}.${CONTEXTS}.`).length] = value
+    } else if (key === `${IMS}.${CONFIG}.${CURRENT}`) {
+      store[IMS][CONFIG][CURRENT] = value
     }
+    store[key] = value
   })
 
+  spy.mockClear()
   command.argv = []
   runResult = command.run()
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
-  await expect(spy).toHaveBeenCalledWith(store.ims.current)
+  await expect(spy).toHaveBeenCalledWith(store[IMS][CONFIG][CURRENT])
 
+  spy.mockClear()
   command.argv = ['--ctx', myContext, '--value']
   runResult = command.run()
   await expect(runResult).resolves.not.toThrow()
   await expect(spy).toHaveBeenCalledWith({
-    data: store.ims[myContext],
+    data: store[IMS][CONTEXTS][myContext],
     name: myContext
   })
 
+  spy.mockClear()
   command.argv = ['--list']
   runResult = command.run()
   await expect(runResult).resolves.not.toThrow()
   await expect(spy).toHaveBeenCalledWith([myContext, anotherContext])
 
+  spy.mockClear()
   command.argv = ['--set', anotherContext]
   runResult = command.run()
   await expect(runResult).resolves.not.toThrow()

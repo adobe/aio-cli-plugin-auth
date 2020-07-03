@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 
 const config = require('@adobe/aio-lib-core-config')
 const aioConsoleLogger = require('@adobe/aio-lib-core-logging')('@adobe/aio-cli-plugin-auth:upgrade-config-hook', { provider: 'debug' })
-const { IMS, CLI, CONFIG, CONTEXTS } = require('@adobe/aio-lib-ims/src/context')
+const { IMS, CLI, CONFIG, CONTEXTS, PLUGINS, CURRENT } = require('@adobe/aio-lib-ims/src/context')
 const fs = require('fs')
 const { EOL } = require('os')
 
@@ -47,8 +47,10 @@ const upgrade = async () => {
       // local or global config
       const newConfig = Object.keys(oldConfig)
         .reduce((obj, k) => {
-          if (!k.startsWith('$')) {
-            obj[CONTEXTS][k] = oldConfig[k]
+          if (k === '$plugins') {
+            obj[CONFIG][PLUGINS] = oldConfig[k]
+          } else if (k === '$current') {
+            obj[CONFIG][CURRENT] = oldConfig[k]
           } else if (k === '$cli') {
             obj[CONTEXTS][CLI] = oldConfig[k]
             // rename $cli.bare-output
@@ -57,8 +59,7 @@ const upgrade = async () => {
               delete obj[CONTEXTS][CLI]['$cli.bare-output']
             }
           } else {
-            // remove dollar sign
-            obj[CONFIG][k.substr(1)] = oldConfig[k]
+            obj[CONTEXTS][k] = oldConfig[k]
           }
           return obj
         }, { [CONFIG]: {}, [CONTEXTS]: {} })
