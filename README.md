@@ -12,19 +12,14 @@ The Auth plugin to the Adobe I/O CLI supports managing tokens for Adobe Identity
 
 
 <!-- toc -->
-- [aio-cli-plugin-auth](#aio-cli-plugin-auth)
-- [Dependencies](#dependencies)
-- [Motivation](#motivation)
-- [The JavaScript Packages](#the-javascript-packages)
-- [How it works](#how-it-works)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`aio auth`](#aio-auth)
-  - [`aio auth:ctx`](#aio-authctx)
-  - [`aio auth:login`](#aio-authlogin)
-  - [`aio auth:logout`](#aio-authlogout)
-- [Contributing](#contributing)
-- [Licensing](#licensing)
+* [Dependencies](#dependencies)
+* [Motivation](#motivation)
+* [The JavaScript Packages](#the-javascript-packages)
+* [How it works](#how-it-works)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Contributing](#contributing)
+* [Licensing](#licensing)
 <!-- tocstop -->
 
 # Dependencies
@@ -94,8 +89,8 @@ DESCRIPTION
   multiple. Each set of configuration properties, called an Adobe IMS context,
   can be individually addressed by a label.
 
-  Configuration for the Adobe IMS commands is stored in the "ims"
-  configuration property. The special property "current" contains the
+  Configuration for the Adobe IMS commands is stored in the "$ims"
+  configuration property. The special property "$current" contains the
   label of the current configuration which can be set using the
   "aio auth ctx -s <label>" command.
 
@@ -113,7 +108,7 @@ DESCRIPTION
 
 EXAMPLE
   {
-       ims: {
+       $ims: {
          postman: {
            env: "stage",
            callback_url: "https://callback.example.com",
@@ -122,7 +117,7 @@ EXAMPLE
            scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
            state: ""
          },
-         current: "postman"
+         $current: "postman"
        }
      }
 ```
@@ -157,7 +152,7 @@ DESCRIPTION
 
   Currently it is not possible to update the Adobe Adobe IMS context configuration
   using this command. Use the "aio config" commands for this.
-        e.g. aio config:set \ims.your_context.your_context_key "your_context_value"
+        e.g. aio config:set \$ims.your_context.your_context_key "your_context_value"
 
   Please note, that the Adobe Adobe IMS context labels starting with "$" are reserved
   and cannot be used as an Adobe IMS context name.
