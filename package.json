@@ -5,12 +5,13 @@
   "author": "Adobe",
   "bugs": "https://github.com/adobe/aio-cli-plugin-auth/issues",
   "dependencies": {
-    "@oclif/plugin-help": "^2.2.3",
-    "@adobe/aio-lib-core-config": "^1.2.8",
-    "@adobe/aio-lib-ims": "^3.2.0",
+    "@adobe/aio-lib-core-config": "^2.0.0",
+    "@adobe/aio-lib-core-logging": "^1.1.0",
+    "@adobe/aio-lib-ims": "^4.0.0",
     "@adobe/aio-lib-ims-jwt": "^2.0.2",
-    "@adobe/aio-lib-ims-oauth": "^2.2.0",
+    "@adobe/aio-lib-ims-oauth": "^3.0.0",
     "@oclif/command": "^1.5.13",
+    "@oclif/plugin-help": "^2.2.3",
     "cli-ux": "^5.4.4",
     "debug": "^4.1.1",
     "hjson": "^3.1.2",
@@ -54,6 +55,9 @@
     "devPlugins": [
       "@oclif/plugin-help"
     ],
+    "hooks": {
+      "init": "./src/hooks/upgrade-config-hook.js"
+    },
     "repositoryPrefix": "<%- repo %>/blob/<%- version %>/<%- commandPath %>"
   },
   "repository": "https://github.com/adobe/aio-cli-plugin-auth",

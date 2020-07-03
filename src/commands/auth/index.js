@@ -29,8 +29,8 @@ Logging in and out is based on configuration of which there may be
 multiple. Each set of configuration properties, called an Adobe IMS context,
 can be individually addressed by a label.
 
-Configuration for the Adobe IMS commands is stored in the "$ims"
-configuration property. The special property "$current" contains the
+Configuration for the Adobe IMS commands is stored in the "ims"
+configuration property. The special property "ims.config.current" contains the
 label of the current configuration which can be set using the
 "aio auth ctx -s <label>" command.
 
@@ -49,16 +49,20 @@ HJSON (default), JSON, or YAML.
 
 IndexCommand.examples = [
   `{
-    $ims: {
-      postman: {
-        env: "stage",
-        callback_url: "https://callback.example.com",
-        client_id: "example.com-client-id",
-        client_secret: "XXXXXXXX",
-        scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
-        state: ""
+    ims: {
+      contexts: {
+        postman: {
+          env: "stage",
+          callback_url: "https://callback.example.com",
+          client_id: "example.com-client-id",
+          client_secret: "XXXXXXXX",
+          scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
+          state: ""
+        }
       },
-      $current: "postman"
+      config: {
+        current: "postman"
+      }
     }
   }
   `

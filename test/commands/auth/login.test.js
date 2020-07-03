@@ -13,6 +13,7 @@ governing permissions and limitations under the License.
 const TheCommand = require('../../../src/commands/auth/login')
 const BaseCommand = require('../../../src/ims-base-command')
 const ims = require('@adobe/aio-lib-ims')
+const { CONTEXTS, CONFIG, IMS } = require('@adobe/aio-lib-ims/src/context')
 
 jest.mock('@adobe/aio-lib-ims')
 
@@ -112,18 +113,19 @@ test('run - error', async () => {
     throw new Error(errorMessage)
   })
 
-  const IMS = '$ims'
   const store = {
     [IMS]: {
+      [CONFIG]: {},
+      [CONTEXTS]: {}
     }
   }
 
   ims.context.setCurrent.mockImplementation(async (data) => {
-    store.$ims.$current = data
+    store.ims.config.current = data
   })
 
   ims.context.getCurrent.mockImplementation(async (data) => {
-    return store.$ims.$current
+    return store.ims.config.current
   })
 
   // context flag
