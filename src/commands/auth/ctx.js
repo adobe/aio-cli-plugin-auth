@@ -42,7 +42,7 @@ The following options exist for this command:
 
 Currently it is not possible to update the Adobe Adobe IMS context configuration
 using this command. Use the "aio config" commands for this.
-     e.g. aio config:set ims.your_context.your_context_key "your_context_value"
+     e.g. aio config:set ims.contexts.your_context.your_context_key "your_context_value"
 
 Please note, that the following IMS context label names is reserved: \`cli\`
 and should not be used as an IMS context name.
