@@ -23,7 +23,7 @@ class CtxCommand extends ImsBaseCommand {
     } else if (flags.value) {
       this.printObject(await context.get(flags.ctx))
     } else if (flags.set) {
-      await context.setCurrent(flags.set, flags.local)
+      await context.setCurrent(flags.set)
       this.printObject(await context.getCurrent())
     } else {
       this.printObject(await context.getCurrent())
@@ -45,14 +45,16 @@ using this command. Use the "aio config" commands for this.
      e.g. aio config:set ims.your_context.your_context_key "your_context_value"
 
 Please note, that the following IMS context label names is reserved: \`cli\`
-and cannot should not be used as an IMS context name.
+and should not be used as an IMS context name.
+
+Also note that the current context can only be set locally.
 `
 
 CtxCommand.flags = {
   ...ImsBaseCommand.flags,
   list: flags.boolean({ description: 'Names of the Adobe IMS contexts as an array', exclusive: ['value', 'set', 'plugin'], multiple: false }),
   value: flags.boolean({ description: 'Prints named or current Adobe IMS context data', exclusive: ['list', 'set', 'plugin'], multiple: false }),
-  set: flags.string({ char: 's', description: 'Sets the name of the current Adobe IMS context', exclusive: ['list', 'val', 'ctx', 'plugin'], multiple: false })
+  set: flags.string({ char: 's', description: 'Sets the name of the current local Adobe IMS context', exclusive: ['list', 'val', 'ctx', 'plugin'], multiple: false })
 }
 
 CtxCommand.args = [
