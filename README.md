@@ -89,8 +89,8 @@ DESCRIPTION
   multiple. Each set of configuration properties, called an Adobe IMS context,
   can be individually addressed by a label.
 
-  Configuration for the Adobe IMS commands is stored in the "$ims"
-  configuration property. The special property "$current" contains the
+  Configuration for the Adobe IMS commands is stored in the "ims"
+  configuration property. The special property "ims.config.current" contains the
   label of the current configuration which can be set using the
   "aio auth ctx -s <label>" command.
 
@@ -108,21 +108,25 @@ DESCRIPTION
 
 EXAMPLE
   {
-       $ims: {
-         postman: {
-           env: "stage",
-           callback_url: "https://callback.example.com",
-           client_id: "example.com-client-id",
-           client_secret: "XXXXXXXX",
-           scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
-           state: ""
+       ims: {
+         contexts: {
+           postman: {
+             env: "stage",
+             callback_url: "https://callback.example.com",
+             client_id: "example.com-client-id",
+             client_secret: "XXXXXXXX",
+             scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
+             state: ""
+           }
          },
-         $current: "postman"
+         config: {
+           current: "postman"
+         }
        }
      }
 ```
 
-_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.3.0/src/commands/auth/index.js)_
+_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.4.0/src/commands/auth/index.js)_
 
 ## `aio auth:ctx`
 
@@ -136,7 +140,7 @@ OPTIONS
   -c, --ctx=ctx  Name of the Adobe IMS context to use. Default is the current Adobe IMS context
   -g, --global   global config
   -l, --local    local config
-  -s, --set=set  Sets the name of the current Adobe IMS context
+  -s, --set=set  Sets the name of the current local Adobe IMS context
   -v, --verbose  Verbose output
   --debug=debug  Debug level output
   --list         Names of the Adobe IMS contexts as an array
@@ -152,17 +156,19 @@ DESCRIPTION
 
   Currently it is not possible to update the Adobe Adobe IMS context configuration
   using this command. Use the "aio config" commands for this.
-        e.g. aio config:set \$ims.your_context.your_context_key "your_context_value"
+        e.g. aio config:set ims.contexts.your_context.your_context_key "your_context_value"
 
-  Please note, that the Adobe Adobe IMS context labels starting with "$" are reserved
-  and cannot be used as an Adobe IMS context name.
+  Please note, that the following IMS context label names is reserved: `cli`
+  and should not be used as an IMS context name.
+
+  Also note that the current context can only be set locally.
 
 ALIASES
   $ aio ctx
   $ aio context
 ```
 
-_See code: [src/commands/auth/ctx.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.3.0/src/commands/auth/ctx.js)_
+_See code: [src/commands/auth/ctx.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.4.0/src/commands/auth/ctx.js)_
 
 ## `aio auth:login`
 
@@ -214,7 +220,7 @@ ALIASES
   $ aio login
 ```
 
-_See code: [src/commands/auth/login.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.3.0/src/commands/auth/login.js)_
+_See code: [src/commands/auth/login.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.4.0/src/commands/auth/login.js)_
 
 ## `aio auth:logout`
 
@@ -251,7 +257,7 @@ ALIASES
   $ aio logout
 ```
 
-_See code: [src/commands/auth/logout.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.3.0/src/commands/auth/logout.js)_
+_See code: [src/commands/auth/logout.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.4.0/src/commands/auth/logout.js)_
 <!-- commandsstop -->
 
 
