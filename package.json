@@ -8,8 +8,6 @@
     "@adobe/aio-lib-core-config": "^2.0.0",
     "@adobe/aio-lib-core-logging": "^1.1.0",
     "@adobe/aio-lib-ims": "^4.0.0",
-    "@adobe/aio-lib-ims-jwt": "^2.0.2",
-    "@adobe/aio-lib-ims-oauth": "^3.0.0",
     "@oclif/command": "^1.5.13",
     "@oclif/plugin-help": "^2.2.3",
     "cli-ux": "^5.4.4",
@@ -32,7 +30,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "execa": "^4.0.0",
-    "globby": "^10.0.1",
     "jest": "^24",
     "jest-junit": "^10.0.0",
     "stdout-stderr": "^0.1.9"
