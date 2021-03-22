@@ -39,9 +39,9 @@ configuration properties depending on the kind of access that is
 supported. The below example shows the configuration for OAuth2
 based (graphical SUSI) login.
 
-The "env" property is mandatory and designates the Adobe IMS environment
+The "env" property is optional and designates the Adobe IMS environment
 used for authentication. Possible values are "stage" and "prod".
-If the property is missing or any other value, it defaults to "stage".
+If the property is missing or any other value, it defaults to "prod".
 
 All commands allow their normal output to be formatted in either
 HJSON (default), JSON, or YAML.
