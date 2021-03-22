@@ -62,14 +62,14 @@ beforeEach(() => {
   fs.readFileSync.mockReset()
   fs.writeFileSync.mockReset()
   // mock data
-  fakeOldConfig = { [OLD_IMS_CONFIG_KEY]: { $cli: { '$cli.bare-output': false, abc: 1 }, $current: 'dude007', $plugins: ['a', 'b'], dude007: { some: 'super', crazy: 'config' } } }
-  fakeNewConfig = { [IMS]: { contexts: { cli: { 'cli.bare-output': false, abc: 1 }, dude007: { some: 'super', crazy: 'config' } }, config: { current: 'dude007', plugins: ['a', 'b'] } } }
-  fakeOldConfig2 = { [OLD_IMS_CONFIG_KEY]: { $cli: { '$cli.bare-output': true, def: 0 }, $current: 'shine005', $plugins: [], shine005: { a: 'happy configuration' } } }
-  fakeNewConfig2 = { [IMS]: { contexts: { cli: { 'cli.bare-output': true, def: 0 }, shine005: { a: 'happy configuration' } }, config: { current: 'shine005', plugins: [] } } }
-  fakeOldConfig3 = { [OLD_IMS_CONFIG_KEY]: { $current: 'shine005', $plugins: [], shine005: { a: 'happy configuration' } } }
-  fakeNewConfig3 = { [IMS]: { contexts: { shine005: { a: 'happy configuration' } }, config: { current: 'shine005', plugins: [] } } }
-  fakeOldConfig4 = { [OLD_IMS_CONFIG_KEY]: { $cli: { def: 0 }, $current: 'shine005', $plugins: [], shine005: { a: 'happy configuration' } } }
-  fakeNewConfig4 = { [IMS]: { contexts: { cli: { def: 0 }, shine005: { a: 'happy configuration' } }, config: { current: 'shine005', plugins: [] } } }
+  fakeOldConfig = { [OLD_IMS_CONFIG_KEY]: { $cli: { '$cli.bare-output': false, abc: 1 }, $current: 'dude007', dude007: { some: 'super', crazy: 'config' } } }
+  fakeNewConfig = { [IMS]: { contexts: { cli: { 'cli.bare-output': false, abc: 1 }, dude007: { some: 'super', crazy: 'config' } }, config: { current: 'dude007' } } }
+  fakeOldConfig2 = { [OLD_IMS_CONFIG_KEY]: { $cli: { '$cli.bare-output': true, def: 0 }, $current: 'shine005', shine005: { a: 'happy configuration' } } }
+  fakeNewConfig2 = { [IMS]: { contexts: { cli: { 'cli.bare-output': true, def: 0 }, shine005: { a: 'happy configuration' } }, config: { current: 'shine005' } } }
+  fakeOldConfig3 = { [OLD_IMS_CONFIG_KEY]: { $current: 'shine005', shine005: { a: 'happy configuration' } } }
+  fakeNewConfig3 = { [IMS]: { contexts: { shine005: { a: 'happy configuration' } }, config: { current: 'shine005' } } }
+  fakeOldConfig4 = { [OLD_IMS_CONFIG_KEY]: { $cli: { def: 0 }, $current: 'shine005', shine005: { a: 'happy configuration' } } }
+  fakeNewConfig4 = { [IMS]: { contexts: { cli: { def: 0 }, shine005: { a: 'happy configuration' } }, config: { current: 'shine005' } } }
   fakeOldEnv = { [OLD_IMS_CONFIG_KEY]: { green008: 'a_very_great_conf', blue009: 'another_very_great_conf' } }
   fakeNewEnvFileContent = `# some comment${EOL}AIO_${IMS}_contexts_green008=a_very_great_conf${EOL}AIO_${IMS}_contexts_blue009=another_very_great_conf`
 })
