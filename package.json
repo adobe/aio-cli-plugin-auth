@@ -1,7 +1,7 @@
 {
   "name": "@adobe/aio-cli-plugin-auth",
   "description": "The IMS plugin to aio supports managing tokens for IMS such as login, logout, and retrieving and using tokens.",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "author": "Adobe",
   "bugs": "https://github.com/adobe/aio-cli-plugin-auth/issues",
   "dependencies": {
