@@ -34,8 +34,9 @@
     "jest-junit": "^10.0.0",
     "stdout-stderr": "^0.1.9"
   },
+  "engineStrict": true,
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12"
   },
   "files": [
     "/oclif.manifest.json",
