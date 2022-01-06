@@ -100,6 +100,27 @@ test('run - success (--bare)', async () => {
   expect(spy2).not.toHaveBeenCalled()
 })
 
+test('run - success (--browser)', async () => {
+  const tokenData = {
+    data: ''
+  }
+
+  const spy = jest.spyOn(command, 'printObject')
+  const spy2 = jest.spyOn(command, 'printConsoleConfig')
+
+  ims.getTokenData.mockImplementation(() => {
+    return tokenData
+  })
+
+  command.argv = ['--browser', 'Firefox']
+  const runResult = command.run()
+  await expect(runResult instanceof Promise).toBeTruthy()
+  await expect(runResult).resolves.not.toThrow()
+  expect(ims.getToken.mock.calls[0][1]).toEqual({ browser: 'Firefox', open: true })
+  expect(spy).toHaveBeenCalled()
+  expect(spy2).toHaveBeenCalled()
+})
+
 test('run - error', async () => {
   const errorMessage = 'my-error'
   const context = 'my-context'

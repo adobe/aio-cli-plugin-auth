@@ -39,7 +39,10 @@ class LoginCommand extends ImsBaseCommand {
         })
       }
 
-      let token = await getToken(flags.ctx, { open: flags.open })
+      let token = await getToken(flags.ctx, {
+        open: flags.open,
+        browser: flags.browser
+      })
 
       // decode the token
       if (flags.decode) {
@@ -104,6 +107,9 @@ LoginCommand.flags = {
     allowNo: true,
     default: true,
     description: 'Open the default browser to complete the login'
+  }),
+  browser: flags.string({
+    description: 'specify alternate browser to use when opening login page'
   })
 }
 
