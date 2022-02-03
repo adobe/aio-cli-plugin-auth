@@ -12,13 +12,12 @@ governing permissions and limitations under the License.
 
 const { flags } = require('@oclif/command')
 const ImsBaseCommand = require('../../ims-base-command')
+const { getTokenData, getToken, invalidateToken, context } = require('@adobe/aio-lib-ims')
+const { CLI } = require('@adobe/aio-lib-ims/src/context')
 
 class LoginCommand extends ImsBaseCommand {
   async run () {
     const { flags } = this.parse(LoginCommand)
-
-    const { getTokenData, getToken, invalidateToken, context } = require('@adobe/aio-lib-ims')
-    const { CLI } = require('@adobe/aio-lib-ims/src/context')
     const current = await context.getCurrent()
 
     try {
@@ -40,7 +39,7 @@ class LoginCommand extends ImsBaseCommand {
         })
       }
 
-      let token = await getToken(flags.ctx, flags.force)
+      let token = await getToken(flags.ctx, { open: flags.open })
 
       // decode the token
       if (flags.decode) {
@@ -78,17 +77,34 @@ The currently supported Adobe IMS login plugins are:
 * aio-lib-ims-jwt for JWT token based login supporting
   Adobe I/O Console service integrations.
 * aio-lib-ims-oauth for browser based OAuth2 login. This
-  plugin will launch a Chromium browser to guide the user through the
+  plugin will launch the default browser to guide the user through the
   login process. The plugin itself will *never* see the user's
   password but only receive the authorization token after the
-  user authenticated with Adobe IMS.
+  user has authenticated with Adobe IMS.
 `
 
 LoginCommand.flags = {
   ...ImsBaseCommand.flags,
-  force: flags.boolean({ char: 'f', description: 'Force logging in. This causes a forced logout on the context first and makes sure to not use any cached data when calling the plugin.', default: false }),
-  decode: flags.boolean({ char: 'd', description: 'Decode and display access token data' }),
-  bare: flags.boolean({ char: 'b', description: 'print access token only', default: false })
+  force: flags.boolean({
+    char: 'f',
+    description: 'Force logging in. This causes a forced logout on the context first and makes sure to not use any cached data when calling the plugin.',
+    default: false
+  }),
+  decode: flags.boolean({
+    char: 'd',
+    description: 'Decode and display access token data'
+  }),
+  bare: flags.boolean({
+    char: 'b',
+    description: 'print access token only',
+    default: false
+  }),
+  open: flags.boolean({
+    char: 'o',
+    allowNo: true,
+    default: true,
+    description: 'Open the default browser to complete the login'
+  })
 }
 
 LoginCommand.args = [
