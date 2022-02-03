@@ -78,33 +78,6 @@ $ aio auth --help
 Adobe IMS commands to login and logout.
 
 ```
-Adobe IMS commands to login and logout.
-
-The main commands are auth:login to get or create an access token and
-auth:logout to invalidate an access token and thus log out from Adobe IMS.
-
-Logging in and out is based on configuration of which there may be
-multiple. Each set of configuration properties, called an Adobe IMS context,
-can be individually addressed by a label.
-
-Configuration for the Adobe IMS commands is stored in the "ims"
-configuration property. The special property "ims.config.current" contains the
-label of the current configuration which can be set using the
-"aio auth ctx -s <label>" command.
-
-Each set of properties in a labeled Adobe IMS context configurations has
-configuration properties depending on the kind of access that is
-supported. The below example shows the configuration for OAuth2
-based (graphical SUSI) login.
-
-The "env" property is optional and designates the Adobe IMS environment
-used for authentication. Possible values are "stage" and "prod".
-If the property is missing or any other value, it defaults to "prod".
-
-All commands allow their normal output to be formatted in either
-HJSON (default), JSON, or YAML.
-
-
 USAGE
   $ aio auth
 
@@ -135,50 +108,31 @@ DESCRIPTION
 
 EXAMPLE
   {
-       ims: {
-         contexts: {
-           postman: {
-             env: "stage",
-             callback_url: "https://callback.example.com",
-             client_id: "example.com-client-id",
-             client_secret: "XXXXXXXX",
-             scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
-             state: ""
-           }
-         },
-         config: {
-           current: "postman"
-         }
-       }
-     }
+      ims: {
+        contexts: {
+          postman: {
+            env: "stage",
+            callback_url: "https://callback.example.com",
+            client_id: "example.com-client-id",
+            client_secret: "XXXXXXXX",
+            scope: "openid AdobeID additional_info.projectedProductContext read_organizations",
+            state: ""
+          }
+        },
+        config: {
+          current: "postman"
+        }
+      }
+    }
 ```
 
-_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.5.0/src/commands/auth/index.js)_
+_See code: [src/commands/auth/index.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/2.6.0/src/commands/auth/index.ts)_
 
 ## `aio auth:ctx`
 
 Manage Adobe IMS contexts.
 
 ```
-Manage Adobe IMS contexts.
-
-The following options exist for this command:
-
-* List the names of the configured Adobe IMS contexts
-* Print the name of the current Adobe IMS context
-* Set the name of the current Adobe IMS context
-* Print the configuration of the current or a named Adobe IMS context
-
-Currently it is not possible to update the Adobe Adobe IMS context configuration
-using this command. Use the "aio config" commands for this.
-     e.g. aio config:set ims.contexts.your_context.your_context_key "your_context_value"
-
-Please note, that the following IMS context label names is reserved: `cli`
-and should not be used as an IMS context name.
-
-Also note that the current context can only be set locally.
-
-
 USAGE
   $ aio auth:ctx
 
@@ -202,7 +156,7 @@ DESCRIPTION
 
   Currently it is not possible to update the Adobe Adobe IMS context configuration
   using this command. Use the "aio config" commands for this.
-        e.g. aio config:set ims.contexts.your_context.your_context_key "your_context_value"
+       e.g. aio config:set ims.contexts.your_context.your_context_key "your_context_value"
 
   Please note, that the following IMS context label names is reserved: `cli`
   and should not be used as an IMS context name.
@@ -214,55 +168,33 @@ ALIASES
   $ aio context
 ```
 
-_See code: [src/commands/auth/ctx.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.5.0/src/commands/auth/ctx.js)_
+_See code: [src/commands/auth/ctx.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/2.6.0/src/commands/auth/ctx.ts)_
 
 ## `aio auth:login`
 
 Log in with a certain Adobe IMS context and returns the access token.
 
 ```
-Log in with a certain Adobe IMS context and returns the access token.
-
-If the Adobe IMS context already has a valid access token set (valid meaning
-at least 10 minutes before expiry), that token is returned.
-
-Otherwise, if the Adobe IMS context has a valid refresh token set (valid
-meaning at least 10 minutes before expiry) that refresh token is
-exchanged for an access token before returning the access token.
-
-Lastly, if the Adobe IMS context properties are supported by one of the
-Adobe IMS login plugins, that login plugin is called to guide through
-the IMS login process.
-
-The currently supported Adobe IMS login plugins are:
-
-* aio-lib-ims-jwt for JWT token based login supporting
-  Adobe I/O Console service integrations.
-* aio-lib-ims-oauth for browser based OAuth2 login. This
-  plugin will launch a Chromium browser to guide the user through the
-  login process. The plugin itself will *never* see the user's
-  password but only receive the authorization token after the
-  user authenticated with Adobe IMS.
-
-
 USAGE
   $ aio auth:login
 
 OPTIONS
-  -b, --bare     print access token only
-  -c, --ctx=ctx  Name of the Adobe IMS context to use. Default is the current Adobe IMS context
-  -d, --decode   Decode and display access token data
+  -b, --bare       print access token only
+  -c, --ctx=ctx    Name of the Adobe IMS context to use. Default is the current Adobe IMS context
+  -d, --decode     Decode and display access token data
 
-  -f, --force    Force logging in. This causes a forced logout on the context first and makes sure to not use any cached
-                 data when calling the plugin.
+  -f, --force      Force logging in. This causes a forced logout on the context first and makes sure to not use any
+                   cached data when calling the plugin.
 
-  -g, --global   global config
+  -g, --global     global config
 
-  -l, --local    local config
+  -l, --local      local config
 
-  -v, --verbose  Verbose output
+  -o, --[no-]open  Open the default browser to complete the login
 
-  --debug=debug  Debug level output
+  -v, --verbose    Verbose output
+
+  --debug=debug    Debug level output
 
 DESCRIPTION
   If the Adobe IMS context already has a valid access token set (valid meaning
@@ -279,33 +211,24 @@ DESCRIPTION
   The currently supported Adobe IMS login plugins are:
 
   * aio-lib-ims-jwt for JWT token based login supporting
-     Adobe I/O Console service integrations.
+    Adobe I/O Console service integrations.
   * aio-lib-ims-oauth for browser based OAuth2 login. This
-     plugin will launch a Chromium browser to guide the user through the
-     login process. The plugin itself will *never* see the user's
-     password but only receive the authorization token after the
-     user authenticated with Adobe IMS.
+    plugin will launch the default browser to guide the user through the
+    login process. The plugin itself will *never* see the user's
+    password but only receive the authorization token after the
+    user has authenticated with Adobe IMS.
 
 ALIASES
   $ aio login
 ```
 
-_See code: [src/commands/auth/login.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.5.0/src/commands/auth/login.js)_
+_See code: [src/commands/auth/login.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/2.6.0/src/commands/auth/login.ts)_
 
 ## `aio auth:logout`
 
 Log out the current or a named Adobe IMS context.
 
 ```
-Log out the current or a named Adobe IMS context.
-
-This command can be called multiple times on the same Adobe IMS context with
-out causing any errors. The assumption is that after calling this command
-without an error, the Adobe IMS context's access and refresh tokens have been
-invalidated and removed from persistent storage. Repeatedly calling this
-command will just do nothing.
-
-
 USAGE
   $ aio auth:logout
 
@@ -336,7 +259,7 @@ ALIASES
   $ aio logout
 ```
 
-_See code: [src/commands/auth/logout.js](https://github.com/adobe/aio-cli-plugin-auth/blob/2.5.0/src/commands/auth/logout.js)_
+_See code: [src/commands/auth/logout.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/2.6.0/src/commands/auth/logout.ts)_
 <!-- commandsstop -->
 
 
