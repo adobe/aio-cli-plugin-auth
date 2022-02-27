@@ -10,14 +10,14 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const ImsBaseCommand = require('../../ims-base-command')
 const { getTokenData, getToken, invalidateToken, context } = require('@adobe/aio-lib-ims')
 const { CLI } = require('@adobe/aio-lib-ims/src/context')
 
 class LoginCommand extends ImsBaseCommand {
   async run () {
-    const { flags } = this.parse(LoginCommand)
+    const { flags } = await this.parse(LoginCommand)
     const current = await context.getCurrent()
 
     try {
@@ -85,21 +85,21 @@ The currently supported Adobe IMS login plugins are:
 
 LoginCommand.flags = {
   ...ImsBaseCommand.flags,
-  force: flags.boolean({
+  force: Flags.boolean({
     char: 'f',
     description: 'Force logging in. This causes a forced logout on the context first and makes sure to not use any cached data when calling the plugin.',
     default: false
   }),
-  decode: flags.boolean({
+  decode: Flags.boolean({
     char: 'd',
     description: 'Decode and display access token data'
   }),
-  bare: flags.boolean({
+  bare: Flags.boolean({
     char: 'b',
     description: 'print access token only',
     default: false
   }),
-  open: flags.boolean({
+  open: Flags.boolean({
     char: 'o',
     allowNo: true,
     default: true,
