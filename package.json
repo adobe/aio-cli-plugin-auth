@@ -32,8 +32,7 @@
     "execa": "^4.0.0",
     "jest": "^24",
     "jest-junit": "^10.0.0",
-    "stdout-stderr": "^0.1.9",
-    "typescript": "^4.5.3"
+    "stdout-stderr": "^0.1.9"
   },
   "engineStrict": true,
   "engines": {
