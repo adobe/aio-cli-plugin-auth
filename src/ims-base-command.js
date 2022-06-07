@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Command, flags } = require('@oclif/command')
+const { Command, Flags } = require('@oclif/core')
 const hjson = require('hjson')
 const yaml = require('js-yaml')
 const debug = require('debug')
@@ -20,7 +20,7 @@ const CONSOLE_KEY = 'console'
 
 class ImsBaseCommand extends Command {
   async init () {
-    const { flags } = this.parse(this.constructor)
+    const { flags } = await this.parse(this.constructor)
 
     // See https://www.npmjs.com/package/debug for usage in commands
     if (flags.verbose) {
@@ -39,8 +39,8 @@ class ImsBaseCommand extends Command {
     this.debug(`${message}: ${err.message || err}${stackTrace}`)
   }
 
-  printObject (obj) {
-    const { flags } = this.parse(this.constructor)
+  async printObject (obj) {
+    const { flags } = await this.parse(this.constructor)
 
     let format = 'hjson'
     if (flags.yaml) format = 'yaml'
@@ -92,13 +92,13 @@ class ImsBaseCommand extends Command {
 }
 
 ImsBaseCommand.flags = {
-  debug: flags.string({ description: 'Debug level output' }),
-  verbose: flags.boolean({ char: 'v', description: 'Verbose output' }),
-  local: flags.boolean({ char: 'l', description: 'local config', exclusive: ['global'] }),
-  global: flags.boolean({ char: 'g', description: 'global config', exclusive: ['local'] }),
-  json: flags.boolean({ char: 'j', hidden: true, exclusive: ['yaml'] }),
-  yaml: flags.boolean({ char: 'y', hidden: true, exclusive: ['json'] }),
-  ctx: flags.string({ char: 'c', description: ' Name of the Adobe IMS context to use. Default is the current Adobe IMS context', multiple: false })
+  debug: Flags.string({ description: 'Debug level output' }),
+  verbose: Flags.boolean({ char: 'v', description: 'Verbose output' }),
+  local: Flags.boolean({ char: 'l', description: 'local config', exclusive: ['global'] }),
+  global: Flags.boolean({ char: 'g', description: 'global config', exclusive: ['local'] }),
+  json: Flags.boolean({ char: 'j', hidden: true, exclusive: ['yaml'] }),
+  yaml: Flags.boolean({ char: 'y', hidden: true, exclusive: ['json'] }),
+  ctx: Flags.string({ char: 'c', description: ' Name of the Adobe IMS context to use. Default is the current Adobe IMS context', multiple: false })
 }
 
 ImsBaseCommand.args = [
