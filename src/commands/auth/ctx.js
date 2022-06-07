@@ -10,23 +10,23 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const ImsBaseCommand = require('../../ims-base-command')
 
 class CtxCommand extends ImsBaseCommand {
   async run () {
-    const { flags } = this.parse(CtxCommand)
+    const { flags } = await this.parse(CtxCommand)
 
     const { context } = require('@adobe/aio-lib-ims')
     if (flags.list) {
-      this.printObject(await context.keys())
+      await this.printObject(await context.keys())
     } else if (flags.value) {
-      this.printObject(await context.get(flags.ctx))
+      await this.printObject(await context.get(flags.ctx))
     } else if (flags.set) {
       await context.setCurrent(flags.set)
-      this.printObject(await context.getCurrent())
+      await this.printObject(await context.getCurrent())
     } else {
-      this.printObject(await context.getCurrent())
+      await this.printObject(await context.getCurrent())
     }
   }
 }
@@ -52,9 +52,22 @@ Also note that the current context can only be set locally.
 
 CtxCommand.flags = {
   ...ImsBaseCommand.flags,
-  list: flags.boolean({ description: 'Names of the Adobe IMS contexts as an array', exclusive: ['value', 'set', 'plugin'], multiple: false }),
-  value: flags.boolean({ description: 'Prints named or current Adobe IMS context data', exclusive: ['list', 'set', 'plugin'], multiple: false }),
-  set: flags.string({ char: 's', description: 'Sets the name of the current local Adobe IMS context', exclusive: ['list', 'val', 'ctx', 'plugin'], multiple: false })
+  list: Flags.boolean({
+    description: 'Names of the Adobe IMS contexts as an array',
+    exclusive: ['value', 'set', 'plugin'],
+    multiple: false
+  }),
+  value: Flags.boolean({
+    description: 'Prints named or current Adobe IMS context data',
+    exclusive: ['list', 'set', 'plugin'],
+    multiple: false
+  }),
+  set: Flags.string({
+    char: 's',
+    description: 'Sets the name of the current local Adobe IMS context',
+    exclusive: ['list', 'val', 'ctx', 'plugin'],
+    multiple: false
+  })
 }
 
 CtxCommand.args = [

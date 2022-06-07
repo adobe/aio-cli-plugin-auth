@@ -10,12 +10,12 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const ImsBaseCommand = require('../../ims-base-command')
 
 class LogoutCommand extends ImsBaseCommand {
   async run () {
-    const { flags } = this.parse(LogoutCommand)
+    const { flags } = await this.parse(LogoutCommand)
 
     const { invalidateToken, context } = require('@adobe/aio-lib-ims')
     const { CLI } = require('@adobe/aio-lib-ims/src/context')
@@ -47,8 +47,9 @@ command will just do nothing.
 
 LogoutCommand.flags = {
   ...ImsBaseCommand.flags,
-  force: flags.boolean({
-    char: 'f', description: `Invalidate the refresh token as well as all access tokens.
+  force: Flags.boolean({
+    char: 'f',
+    description: `Invalidate the refresh token as well as all access tokens.
 Otherwise only the access token is invalidated. For Adobe IMS
 contexts not supporting refresh tokens, this flag has no
 effect.`

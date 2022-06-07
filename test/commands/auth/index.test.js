@@ -11,8 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const TheCommand = require('../../../src/commands/auth/index')
-const { Command } = require('@oclif/command')
-const HHelp = require('@oclif/plugin-help').default
+const { Help, Command } = require('@oclif/core')
 
 afterEach(() => {
   jest.resetAllMocks()
@@ -32,7 +31,8 @@ test('exports and properties', () => {
 })
 
 test('run', async () => {
-  const spy = jest.spyOn(HHelp.prototype, 'showHelp').mockReturnValue(true)
+  command.config = {}
+  const spy = jest.spyOn(Help.prototype, 'showHelp').mockReturnValue(true)
   return command.run().then(() => {
     expect(spy).toHaveBeenCalledWith(['auth', '--help'])
   })
