@@ -29,10 +29,9 @@
     "execa": "^4.0.0",
     "jest": "^27",
     "jest-junit": "^10.0.0",
-    "oclif": "^3.0.1",
+    "oclif": "^3.2.0",
     "stdout-stderr": "^0.1.9"
   },
-  "engineStrict": true,
   "engines": {
     "node": "^14.18 || ^16.13 || >=18"
   },
@@ -48,6 +47,7 @@
   "oclif": {
     "commands": "./src/commands",
     "bin": "aio",
+    "topicSeparator": " ",
     "hooks": {
       "init": "./src/hooks/upgrade-config-hook.js"
     },
@@ -58,7 +58,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "lint": "eslint src test e2e",
     "pretest": "npm run lint",
-    "prepack": "oclif manifest && oclif readme",
+    "prepack": "oclif manifest && oclif readme --no-aliases",
     "test": "npm run unit-tests",
     "unit-tests": "jest --config test/jest.config.js ---ci -w=2",
     "version": "oclif readme && git add README.md",
