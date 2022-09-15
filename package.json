@@ -32,7 +32,6 @@
     "oclif": "^3.2.0",
     "stdout-stderr": "^0.1.9"
   },
-  "engineStrict": true,
   "engines": {
     "node": "^14.18 || ^16.13 || >=18"
   },
@@ -48,6 +47,7 @@
   "oclif": {
     "commands": "./src/commands",
     "bin": "aio",
+    "topicSeparator": " ",
     "hooks": {
       "init": "./src/hooks/upgrade-config-hook.js"
     },

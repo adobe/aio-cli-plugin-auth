@@ -21,8 +21,8 @@ class IndexCommand extends Command {
 
 IndexCommand.description = `Adobe IMS commands to login and logout.
 
-The main commands are auth:login to get or create an access token and
-auth:logout to invalidate an access token and thus log out from Adobe IMS.
+The main commands are \`auth login\` to get or create an access token and
+\`auth logout\` to invalidate an access token and thus log out from Adobe IMS.
 
 Logging in and out is based on configuration of which there may be
 multiple. Each set of configuration properties, called an Adobe IMS context,
