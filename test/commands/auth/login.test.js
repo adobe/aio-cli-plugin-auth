@@ -43,7 +43,6 @@ test('run - success (no flags)', async () => {
   }
 
   const spy = jest.spyOn(command, 'printObject')
-  const spy2 = jest.spyOn(command, 'printConsoleConfig')
 
   ims.getTokenData.mockImplementation(() => {
     return tokenData
@@ -53,7 +52,6 @@ test('run - success (no flags)', async () => {
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
   expect(spy).toHaveBeenCalled()
-  expect(spy2).toHaveBeenCalled()
 })
 
 test('run - success (--decode)', async () => {
@@ -63,7 +61,6 @@ test('run - success (--decode)', async () => {
   }
 
   const spy = jest.spyOn(command, 'printObject')
-  const spy2 = jest.spyOn(command, 'printConsoleConfig')
 
   ims.getTokenData.mockImplementation(() => {
     return tokenData
@@ -75,7 +72,6 @@ test('run - success (--decode)', async () => {
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
   expect(spy).toHaveBeenCalledWith(tokenData)
-  expect(spy2).toHaveBeenCalled()
 })
 
 test('run - success (--bare)', async () => {
@@ -85,7 +81,6 @@ test('run - success (--bare)', async () => {
   }
 
   const spy = jest.spyOn(command, 'printObject')
-  const spy2 = jest.spyOn(command, 'printConsoleConfig')
 
   ims.getToken.mockImplementation(async () => {
     return tokenData
@@ -97,7 +92,6 @@ test('run - success (--bare)', async () => {
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).resolves.not.toThrow()
   expect(spy).toHaveBeenCalledWith(tokenData)
-  expect(spy2).not.toHaveBeenCalled()
 })
 
 test('run - error', async () => {

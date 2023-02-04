@@ -39,18 +39,13 @@ class LoginCommand extends ImsBaseCommand {
         })
       }
 
-      let token = await getToken(flags.ctx, { open: flags.open })
+      const token = await getToken(flags.ctx, { open: flags.open })
 
       // decode the token
       if (flags.decode) {
-        token = getTokenData(token)
-      }
-
-      this.printObject(token)
-
-      if (!flags.bare) {
-        this.log()
-        this.printConsoleConfig()
+        this.printObject(getTokenData(token))
+      } else {
+        this.printObject(token)
       }
     } catch (err) {
       this.debugError('Login failure', err)

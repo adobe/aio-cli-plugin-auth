@@ -14,9 +14,6 @@ const { Command, Flags } = require('@oclif/core')
 const hjson = require('hjson')
 const yaml = require('js-yaml')
 const debug = require('debug')
-const config = require('@adobe/aio-lib-core-config')
-
-const CONSOLE_KEY = 'console'
 
 class ImsBaseCommand extends Command {
   async init () {
@@ -70,24 +67,6 @@ class ImsBaseCommand extends Command {
     if (obj != null) {
       print(obj)
     }
-  }
-
-  /**
-   * print current selected console config
-   */
-  printConsoleConfig () {
-    const consoleConfig = {}
-
-    consoleConfig.org = config.get(`${CONSOLE_KEY}.org.name`)
-    consoleConfig.project = config.get(`${CONSOLE_KEY}.project.name`)
-    consoleConfig.workspace = config.get(`${CONSOLE_KEY}.workspace.name`)
-
-    this.log('You are currently in:')
-    this.log(`1. Org: ${consoleConfig.org || '<no org selected>'}`)
-    // note: if no org is selected the console plugin makes sure no project is selected
-    this.log(`2. Project: ${consoleConfig.project || '<no project selected>'}`)
-    // note2: if no project is selected the console plugin makes sure no workspace is selected
-    this.log(`3. Workspace: ${consoleConfig.workspace || '<no workspace selected>'}`)
   }
 }
 
