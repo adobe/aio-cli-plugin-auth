@@ -92,13 +92,38 @@ class ImsBaseCommand extends Command {
 }
 
 ImsBaseCommand.flags = {
-  debug: Flags.string({ description: 'Debug level output' }),
-  verbose: Flags.boolean({ char: 'v', description: 'Verbose output' }),
-  local: Flags.boolean({ char: 'l', description: 'local config', exclusive: ['global'] }),
-  global: Flags.boolean({ char: 'g', description: 'global config', exclusive: ['local'] }),
-  json: Flags.boolean({ char: 'j', hidden: true, exclusive: ['yaml'] }),
-  yaml: Flags.boolean({ char: 'y', hidden: true, exclusive: ['json'] }),
-  ctx: Flags.string({ char: 'c', description: ' Name of the Adobe IMS context to use. Default is the current Adobe IMS context', multiple: false })
+  debug: Flags.string({
+    description: 'Debug level output'
+  }),
+  verbose: Flags.boolean({
+    char: 'v',
+    description: 'Verbose output'
+  }),
+  local: Flags.boolean({
+    char: 'l',
+    description: 'local config',
+    exclusive: ['global']
+  }),
+  global: Flags.boolean({
+    char: 'g',
+    description: 'global config',
+    exclusive: ['local']
+  }),
+  json: Flags.boolean({
+    char: 'j',
+    hidden: true,
+    exclusive: ['yaml']
+  }),
+  yaml: Flags.boolean({
+    char: 'y',
+    hidden: true,
+    exclusive: ['json']
+  }),
+  ctx: Flags.string({
+    char: 'c',
+    description: ' Name of the Adobe IMS context to use. Default is the current Adobe IMS context',
+    multiple: false
+  })
 }
 
 ImsBaseCommand.args = [
