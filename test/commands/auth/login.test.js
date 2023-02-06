@@ -153,3 +153,41 @@ test('run - error', async () => {
   runResult = command.run()
   await expect(runResult).rejects.toEqual(new Error(`Cannot get token for context '${context}': ${errorMessage}`))
 })
+
+describe('Use env var for client_id', () => {
+  test('run - success AIO_CLI_IMS_APIKEY - prod', async () => {
+    process.env.AIO_CLI_IMS_APIKEY = 'my-api-key'
+    const tokenData = {
+      data: ''
+    }
+    ims.getToken.mockImplementation(async () => {
+      return tokenData
+    })
+
+    command.argv = []
+    const runResult = command.run()
+    await expect(runResult instanceof Promise).toBeTruthy()
+    await expect(runResult).resolves.not.toThrow()
+    expect(ims.getToken).toHaveBeenCalledWith('cli', { client_id: 'my-api-key', open: true })
+    process.env.AIO_CLI_IMS_APIKEY = undefined
+  })
+
+  test('run - success AIO_CLI_IMS_APIKEY - stage', async () => {
+    process.env.AIO_CLI_IMS_APIKEY = 'my-api-key'
+    process.env.AIO_CLI_ENV = 'stage'
+    const tokenData = {
+      data: ''
+    }
+    ims.getToken.mockImplementation(async () => {
+      return tokenData
+    })
+
+    command.argv = []
+    const runResult = command.run()
+    await expect(runResult instanceof Promise).toBeTruthy()
+    await expect(runResult).resolves.not.toThrow()
+    expect(ims.getToken).toHaveBeenCalledWith('cli', { client_id: 'my-api-key-stage', open: true })
+    process.env.AIO_CLI_IMS_APIKEY = undefined
+    process.env.AIO_CLI_ENV = undefined
+  })
+})
