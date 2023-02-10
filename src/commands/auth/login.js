@@ -56,7 +56,7 @@ class LoginCommand extends ImsBaseCommand {
         }
       }
 
-      let token = await getToken(flags.ctx, loginOptions)
+      const token = await getToken(flags.ctx, loginOptions)
       // decode the token
       if (flags.decode) {
         this.printObject(getTokenData(token))
