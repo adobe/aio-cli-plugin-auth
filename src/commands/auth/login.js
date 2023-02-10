@@ -14,6 +14,7 @@ const { Flags } = require('@oclif/core')
 const ImsBaseCommand = require('../../ims-base-command')
 const { getTokenData, getToken, invalidateToken, context } = require('@adobe/aio-lib-ims')
 const { CLI } = require('@adobe/aio-lib-ims/src/context')
+const { getCliEnv, STAGE_ENV } = require('@adobe/aio-lib-env')
 
 class LoginCommand extends ImsBaseCommand {
   async run () {
@@ -39,8 +40,23 @@ class LoginCommand extends ImsBaseCommand {
         })
       }
 
-      const token = await getToken(flags.ctx, { open: flags.open })
+      // now we need to set the client_id because the server
+      // stores secrets+scopes for each client_id
+      // server has defaults already for aio-cli-console-auth[-stage]
+      // we also need to differentiate between stage and prod env
 
+      const loginOptions = {
+        open: flags.open
+      }
+      if (process.env.AIO_CLI_IMS_APIKEY) {
+        if (STAGE_ENV === getCliEnv()) {
+          loginOptions.client_id = process.env.AIO_CLI_IMS_APIKEY + '-stage'
+        } else {
+          loginOptions.client_id = process.env.AIO_CLI_IMS_APIKEY
+        }
+      }
+
+      let token = await getToken(flags.ctx, loginOptions)
       // decode the token
       if (flags.decode) {
         this.printObject(getTokenData(token))

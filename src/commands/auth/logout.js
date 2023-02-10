@@ -12,13 +12,12 @@ governing permissions and limitations under the License.
 
 const { Flags } = require('@oclif/core')
 const ImsBaseCommand = require('../../ims-base-command')
+const { invalidateToken, context } = require('@adobe/aio-lib-ims')
+const { CLI } = require('@adobe/aio-lib-ims/src/context')
 
 class LogoutCommand extends ImsBaseCommand {
   async run () {
     const { flags } = await this.parse(LogoutCommand)
-
-    const { invalidateToken, context } = require('@adobe/aio-lib-ims')
-    const { CLI } = require('@adobe/aio-lib-ims/src/context')
     const current = await context.getCurrent()
     flags.ctx = flags.ctx || (current || CLI)
     const accessToken = await context.get(`${flags.ctx}.access_token`)
