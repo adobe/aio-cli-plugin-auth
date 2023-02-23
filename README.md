@@ -89,40 +89,29 @@ DESCRIPTION
   Adobe IMS commands to login and logout.
 
   The main commands are `auth login` to get or create an access token and
-
   `auth logout` to invalidate an access token and thus log out from Adobe IMS.
 
   Logging in and out is based on configuration of which there may be
-
   multiple. Each set of configuration properties, called an Adobe IMS context,
-
   can be individually addressed by a label.
 
   Configuration for the Adobe IMS commands is stored in the "ims"
-
   configuration property. The special property "ims.config.current" contains the
-
   label of the current configuration which can be set using the
-
   "aio auth ctx -s <label>" command.
 
   Each set of properties in a labeled Adobe IMS context configurations has
-
   configuration properties depending on the kind of access that is
-
   supported. The below example shows the configuration for OAuth2
-
   based (graphical SUSI) login.
 
   The "env" property is optional and designates the Adobe IMS environment
-
   used for authentication. Possible values are "stage" and "prod".
-
   If the property is missing or any other value, it defaults to "prod".
 
   All commands allow their normal output to be formatted in either
-
   HJSON (default), JSON, or YAML.
+
 
 EXAMPLES
   {
@@ -144,7 +133,7 @@ EXAMPLES
     }
 ```
 
-_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/3.0.1/src/commands/auth/index.js)_
+_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/3.1.0/src/commands/auth/index.js)_
 
 ## `aio auth ctx`
 
@@ -170,24 +159,19 @@ DESCRIPTION
   The following options exist for this command:
 
   * List the names of the configured Adobe IMS contexts
-
   * Print the name of the current Adobe IMS context
-
   * Set the name of the current Adobe IMS context
-
   * Print the configuration of the current or a named Adobe IMS context
 
   Currently it is not possible to update the Adobe Adobe IMS context configuration
-
   using this command. Use the "aio config" commands for this.
-
   e.g. aio config:set ims.contexts.your_context.your_context_key "your_context_value"
 
   Please note, that the following IMS context label names is reserved: `cli`
-
   and should not be used as an IMS context name.
 
   Also note that the current context can only be set locally.
+
 
 ALIASES
   $ aio ctx
@@ -218,36 +202,26 @@ DESCRIPTION
   Log in with a certain Adobe IMS context and returns the access token.
 
   If the Adobe IMS context already has a valid access token set (valid meaning
-
   at least 10 minutes before expiry), that token is returned.
 
   Otherwise, if the Adobe IMS context has a valid refresh token set (valid
-
   meaning at least 10 minutes before expiry) that refresh token is
-
   exchanged for an access token before returning the access token.
 
   Lastly, if the Adobe IMS context properties are supported by one of the
-
   Adobe IMS login plugins, that login plugin is called to guide through
-
   the IMS login process.
 
   The currently supported Adobe IMS login plugins are:
 
   * aio-lib-ims-jwt for JWT token based login supporting
-
   Adobe I/O Console service integrations.
-
   * aio-lib-ims-oauth for browser based OAuth2 login. This
-
   plugin will launch the default browser to guide the user through the
-
   login process. The plugin itself will *never* see the user's
-
   password but only receive the authorization token after the
-
   user has authenticated with Adobe IMS.
+
 
 ALIASES
   $ aio login
@@ -276,14 +250,11 @@ DESCRIPTION
   Log out the current or a named Adobe IMS context.
 
   This command can be called multiple times on the same Adobe IMS context with
-
   out causing any errors. The assumption is that after calling this command
-
   without an error, the Adobe IMS context's access and refresh tokens have been
-
   invalidated and removed from persistent storage. Repeatedly calling this
-
   command will just do nothing.
+
 
 ALIASES
   $ aio logout
@@ -313,24 +284,19 @@ DESCRIPTION
   The following options exist for this command:
 
   * List the names of the configured Adobe IMS contexts
-
   * Print the name of the current Adobe IMS context
-
   * Set the name of the current Adobe IMS context
-
   * Print the configuration of the current or a named Adobe IMS context
 
   Currently it is not possible to update the Adobe Adobe IMS context configuration
-
   using this command. Use the "aio config" commands for this.
-
   e.g. aio config:set ims.contexts.your_context.your_context_key "your_context_value"
 
   Please note, that the following IMS context label names is reserved: `cli`
-
   and should not be used as an IMS context name.
 
   Also note that the current context can only be set locally.
+
 
 ALIASES
   $ aio ctx
@@ -361,24 +327,19 @@ DESCRIPTION
   The following options exist for this command:
 
   * List the names of the configured Adobe IMS contexts
-
   * Print the name of the current Adobe IMS context
-
   * Set the name of the current Adobe IMS context
-
   * Print the configuration of the current or a named Adobe IMS context
 
   Currently it is not possible to update the Adobe Adobe IMS context configuration
-
   using this command. Use the "aio config" commands for this.
-
   e.g. aio config:set ims.contexts.your_context.your_context_key "your_context_value"
 
   Please note, that the following IMS context label names is reserved: `cli`
-
   and should not be used as an IMS context name.
 
   Also note that the current context can only be set locally.
+
 
 ALIASES
   $ aio ctx
@@ -409,36 +370,26 @@ DESCRIPTION
   Log in with a certain Adobe IMS context and returns the access token.
 
   If the Adobe IMS context already has a valid access token set (valid meaning
-
   at least 10 minutes before expiry), that token is returned.
 
   Otherwise, if the Adobe IMS context has a valid refresh token set (valid
-
   meaning at least 10 minutes before expiry) that refresh token is
-
   exchanged for an access token before returning the access token.
 
   Lastly, if the Adobe IMS context properties are supported by one of the
-
   Adobe IMS login plugins, that login plugin is called to guide through
-
   the IMS login process.
 
   The currently supported Adobe IMS login plugins are:
 
   * aio-lib-ims-jwt for JWT token based login supporting
-
   Adobe I/O Console service integrations.
-
   * aio-lib-ims-oauth for browser based OAuth2 login. This
-
   plugin will launch the default browser to guide the user through the
-
   login process. The plugin itself will *never* see the user's
-
   password but only receive the authorization token after the
-
   user has authenticated with Adobe IMS.
+
 
 ALIASES
   $ aio login
@@ -467,14 +418,11 @@ DESCRIPTION
   Log out the current or a named Adobe IMS context.
 
   This command can be called multiple times on the same Adobe IMS context with
-
   out causing any errors. The assumption is that after calling this command
-
   without an error, the Adobe IMS context's access and refresh tokens have been
-
   invalidated and removed from persistent storage. Repeatedly calling this
-
   command will just do nothing.
+
 
 ALIASES
   $ aio logout
