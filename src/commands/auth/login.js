@@ -94,7 +94,9 @@ LoginCommand.flags = {
   force: Flags.boolean({
     char: 'f',
     description: 'Force logging in. This causes a forced logout on the context first and makes sure to not use any cached data when calling the plugin.',
-    default: false
+    default: true,
+    allowNo: true,
+    hidden: true
   }),
   decode: Flags.boolean({
     char: 'd',
