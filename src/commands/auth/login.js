@@ -93,10 +93,7 @@ LoginCommand.flags = {
   ...ImsBaseCommand.flags,
   force: Flags.boolean({
     char: 'f',
-    description: 'Force logging in. This causes a forced logout on the context first and makes sure to not use any cached data when calling the plugin.',
-    default: true,
-    allowNo: true,
-    hidden: true
+    description: 'Force logging in. This causes a forced logout on the context first and makes sure to not use any cached data when calling the plugin.'
   }),
   decode: Flags.boolean({
     char: 'd',

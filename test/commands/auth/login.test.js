@@ -133,6 +133,7 @@ test('run - error', async () => {
   runResult = command.run()
   await expect(runResult instanceof Promise).toBeTruthy()
   await expect(runResult).rejects.toEqual(new Error(`Cannot get token for context '${context}': ${errorMessage}`))
+  await expect(ims.invalidateToken).toHaveBeenCalledWith(context, true)
 
   // context from config
   await ims.context.setCurrent(context)
