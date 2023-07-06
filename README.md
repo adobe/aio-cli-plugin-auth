@@ -133,7 +133,7 @@ EXAMPLES
     }
 ```
 
-_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/3.2.0/src/commands/auth/index.js)_
+_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/3.2.1/src/commands/auth/index.js)_
 
 ## `aio auth ctx`
 
