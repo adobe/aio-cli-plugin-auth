@@ -18,7 +18,7 @@
     "@adobe/eslint-config-aio-lib-config": "^1.4.0",
     "chalk": "^4.0.0",
     "eslint": "^7.32.0",
-    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-oclif": "^4.0.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^23.20.0",
@@ -28,7 +28,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "execa": "^4.0.0",
     "jest": "^27",
-    "jest-junit": "^10.0.0",
+    "jest-junit": "^15.0.0",
     "oclif": "^3.2.0",
     "stdout-stderr": "^0.1.9"
   },
