@@ -133,7 +133,7 @@ EXAMPLES
     }
 ```
 
-_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/3.1.0/src/commands/auth/index.js)_
+_See code: [src/commands/auth/index.js](https://github.com/adobe/aio-cli-plugin-auth/blob/3.2.0/src/commands/auth/index.js)_
 
 ## `aio auth ctx`
 
@@ -237,7 +237,7 @@ USAGE
 
 FLAGS
   -c, --ctx=<value>  Name of the Adobe IMS context to use. Default is the current Adobe IMS context
-  -f, --force        Invalidate the refresh token as well as all access tokens.
+  -f, --[no-]force   Invalidate the refresh token as well as all access tokens.
                      Otherwise only the access token is invalidated. For Adobe IMS
                      contexts not supporting refresh tokens, this flag has no
                      effect.
@@ -405,7 +405,7 @@ USAGE
 
 FLAGS
   -c, --ctx=<value>  Name of the Adobe IMS context to use. Default is the current Adobe IMS context
-  -f, --force        Invalidate the refresh token as well as all access tokens.
+  -f, --[no-]force   Invalidate the refresh token as well as all access tokens.
                      Otherwise only the access token is invalidated. For Adobe IMS
                      contexts not supporting refresh tokens, this flag has no
                      effect.

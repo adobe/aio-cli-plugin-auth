@@ -48,6 +48,8 @@ LogoutCommand.flags = {
   ...ImsBaseCommand.flags,
   force: Flags.boolean({
     char: 'f',
+    default: true,
+    allowNo: true,
     description: `Invalidate the refresh token as well as all access tokens.
 Otherwise only the access token is invalidated. For Adobe IMS
 contexts not supporting refresh tokens, this flag has no
