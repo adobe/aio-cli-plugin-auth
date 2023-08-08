@@ -47,7 +47,7 @@ class ImsBaseCommand extends Command {
       if (format === 'json') {
         this.log(JSON.stringify(obj))
       } else if (format === 'yaml') {
-        this.log(yaml.safeDump(obj, { sortKeys: true, lineWidth: 1024, noCompatMode: true }))
+        this.log(yaml.dump(obj, { sortKeys: true, lineWidth: 1024, noCompatMode: true }))
       } else {
         if (typeof obj !== 'object') {
           this.log(obj)
