@@ -45,7 +45,8 @@ class LoginCommand extends ImsBaseCommand {
       // we also need to differentiate between stage and prod env
 
       const loginOptions = {
-        open: flags.open
+        open: flags.open,
+        forceLogin: flags.force
       }
       if (process.env.AIO_CLI_IMS_APIKEY) {
         loginOptions.client_id = process.env.AIO_CLI_IMS_APIKEY
