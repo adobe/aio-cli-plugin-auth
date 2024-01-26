@@ -133,7 +133,7 @@ EXAMPLES
     }
 ```
 
-_See code: [src/commands/auth/index.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/3.3.0/src/commands/auth/index.ts)_
+_See code: [src/commands/auth/index.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/4.0.0/src/commands/auth/index.ts)_
 
 ## `aio auth ctx`
 
@@ -178,7 +178,7 @@ ALIASES
   $ aio context
 ```
 
-_See code: [src/commands/auth/ctx.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/3.3.0/src/commands/auth/ctx.ts)_
+_See code: [src/commands/auth/ctx.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/4.0.0/src/commands/auth/ctx.ts)_
 
 ## `aio auth login`
 
@@ -229,7 +229,7 @@ ALIASES
   $ aio login
 ```
 
-_See code: [src/commands/auth/login.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/3.3.0/src/commands/auth/login.ts)_
+_See code: [src/commands/auth/login.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/4.0.0/src/commands/auth/login.ts)_
 
 ## `aio auth logout`
 
@@ -264,7 +264,7 @@ ALIASES
   $ aio logout
 ```
 
-_See code: [src/commands/auth/logout.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/3.3.0/src/commands/auth/logout.ts)_
+_See code: [src/commands/auth/logout.ts](https://github.com/adobe/aio-cli-plugin-auth/blob/4.0.0/src/commands/auth/logout.ts)_
 
 ## `aio context`
 
