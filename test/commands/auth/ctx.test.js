@@ -90,6 +90,7 @@ test('run', async () => {
   await expect(runResult).resolves.not.toThrow()
   await expect(spy).toHaveBeenCalledWith({
     data: store[IMS][CONTEXTS][myContext],
+    local: true,
     name: myContext
   })
 
