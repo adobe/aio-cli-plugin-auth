@@ -54,6 +54,46 @@ test('run - success (no flags)', async () => {
   expect(spy).toHaveBeenCalled()
 })
 
+describe('cli context', () => {
+  test('run success (--local)', async () => {
+    const tokenData = { data: '' }
+    ims.getTokenData.mockImplementation(() => tokenData)
+
+    command.argv = ['--ctx', 'cli', '--local']
+    const runResult = command.run([])
+
+    await expect(runResult instanceof Promise).toBeTruthy()
+    await expect(runResult).resolves.not.toThrow()
+    expect(ims.context.setCli).toHaveBeenCalledWith(expect.any(Object), true)
+  })
+
+  test('run success (--global)', async () => {
+    const tokenData = { data: '' }
+
+    ims.getTokenData.mockImplementation(() => tokenData)
+
+    command.argv = ['--ctx', 'cli', '--global']
+    const runResult = command.run([])
+
+    await expect(runResult instanceof Promise).toBeTruthy()
+    await expect(runResult).resolves.not.toThrow()
+    expect(ims.context.setCli).toHaveBeenCalledWith(expect.any(Object), false)
+  })
+
+  test('run success (no flag - should be global as default)', async () => {
+    const tokenData = { data: '' }
+
+    ims.getTokenData.mockImplementation(() => tokenData)
+
+    command.argv = ['--ctx', 'cli']
+    const runResult = command.run([])
+
+    await expect(runResult instanceof Promise).toBeTruthy()
+    await expect(runResult).resolves.not.toThrow()
+    expect(ims.context.setCli).toHaveBeenCalledWith(expect.any(Object), false)
+  })
+})
+
 test('run - success (--decode)', async () => {
   const context = 'my-context'
   const tokenData = {
