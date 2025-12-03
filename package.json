@@ -7,7 +7,7 @@
   "dependencies": {
     "@adobe/aio-lib-core-config": "^5",
     "@adobe/aio-lib-core-logging": "^3",
-    "@adobe/aio-lib-ims": "^7",
+    "@adobe/aio-lib-ims": "^8",
     "@oclif/core": "2.8.12",
     "debug": "^4.1.1",
     "hjson": "^3.1.2",
