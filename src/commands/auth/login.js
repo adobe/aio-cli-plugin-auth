@@ -36,7 +36,8 @@ class LoginCommand extends ImsBaseCommand {
       if (flags.ctx === CLI) {
         await context.setCli({
           'cli.bare-output': flags.bare
-        })
+        },
+        !!flags.local)
       }
 
       // now we need to set the client_id because the server
